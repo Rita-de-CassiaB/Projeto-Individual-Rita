@@ -42,24 +42,11 @@ SELECT * FROM plano;
 (null, "2023-11-01", "2024-11-01", 0, 1480.00, "Crédito", 1, 3);
 SELECT * FROM contrato;
 
--- INSERIR NA TABELA LINHA 
-INSERT INTO linha VALUES
-(null, 'azul', 1, 1);
-SELECT * FROM linha;
-
 -- INSERIR NA TABELA MÁQUINA
 INSERT INTO maquina VALUES
 (null, '131.72.61.67', 'Windows', 'gyulia_piqueira', 'Samsung', 'CCO', 1, 1, 1);
-SELECT * FROM maquina;
-
--- INSERIR NA TABELA COMPONENTE
-INSERT INTO componente (id_componente, nome_componente, fk_maquina_componente, fk_empresa_componente,fk_metrica_componente) VALUES
-(null, 'RAM', 1, 1, 1),
-(null, 'CPU', 1, 1, 2),
-(null, 'DISCO', 1, 1, 3),
-(null, 'REDE', 1, 1, 4);
-
-SELECT * FROM metrica;
+SELECT * FROM componente;
+update maquina set hostname = 'notebook-ritinha' where id_maquina = 1;
 
 -- INSERIR NA TABELA UNIDADE DE MEDIDA
 INSERT INTO unidade_medida VALUES
@@ -67,11 +54,9 @@ INSERT INTO unidade_medida VALUES
 (null, 'Porcentagem', '%'),
 (null, 'MegaBytes', 'MB'), 
 (null, "Graus Celsius", "°C"); 
-SELECT * FROM unidade_medida;
-
-INSERT INTO unidade_medida VALUES 
-(null, "Graus Celsius", "°C"),
-(null, "Milissegundos", "MS");
+select * from unidade_medida;
+INSERT INTO unidade_medida VALUES
+(null, 'Milissegundos', 'MS');
 
 -- metrica para a RAM
 INSERT INTO metrica (risco, perigo, fk_unidade_medida)
@@ -93,19 +78,20 @@ VALUES (50.96, 50.99, 2);
 INSERT INTO metrica (risco, perigo, fk_unidade_medida)
 VALUES (0.0, 0.0, 4);
 SELECT * FROM metrica;
-
 -- metrica de rede
 INSERT INTO metrica (risco, perigo, fk_unidade_medida)
 VALUES (176.45, 250.23, 3);
 
--- metrica de rede ping e latencia
-INSERT INTO metrica (risco, perigo, fk_unidade_medida)
-VALUES (200, 450, 9),
-(100, 280, 9);
+-- INSERIR NA TABELA COMPONENTE
+INSERT INTO componente (id_componente, nome_componente, fk_maquina_componente, fk_empresa_componente, fk_metrica_componente) VALUES
+(null, 'RAM', 1, 1, 1),
+(null, 'CPU', 1, 1, 2),
+(null, 'DISCO', 1, 1, 3),
+(null, 'REDE', 1, 1, 4);
+SELECT * FROM monitoramento;
 
-
+SELECT * FROM monitoramento;
 -- alguns delete que eu precisei (gyu)
 -- DELETE FROM alerta WHERE fk_componenente_alerta >= 1 AND fk_componenente_alerta <= 8400;
 -- DELETE FROM monitoramento WHERE id_monitoramento >= 1 AND id_monitoramento <= 8400;
--- alterações que eu precisei rita
--- alteração da view geral de rede
+

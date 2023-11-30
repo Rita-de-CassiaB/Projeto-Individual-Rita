@@ -162,11 +162,11 @@ function buscarMedidasEmTempoRealRedeProcessos(req, res) {
     });
 }
 
-function listarProcessos(req, res) {
+function listarProcessosRede(req, res) {
     var idMaquina = req.params.idMaquina;
     var idEmpresa = req.params.idEmpresa;
 
-    avisoModel.listarProcessos(idEmpresa, idMaquina)
+    avisoModel.listarProcessosRede(idEmpresa, idMaquina)
         .then(
             function (resultado) {
                 if (resultado.length > 0) {
@@ -197,5 +197,5 @@ module.exports = {
     buscarMedidasEmTempoRealDesempenhoR,
     buscarUltimasMedidasRedeProcessos,
     buscarMedidasEmTempoRealRedeProcessos,
-    listarProcessos
+    listarProcessosRede
 }

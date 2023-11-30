@@ -65,17 +65,68 @@ function plotarGraficoDesempenho(resposta, idMaquina) {
 
         if (registro.recurso === "DISCO") {
             valores[0].innerHTML = (registro.uso) + "%";
-            valores_Bar[0].style.width = (registro.uso) + "%";
+           
+            if (registro.uso < 50) {
+                valores_Bar[0].style.width = (registro.uso) + "%";
+                valores_Bar[0].classList.remove("bg-warning");
+                valores_Bar[0].classList.remove("bg-danger");
+                valores_Bar[0].classList.add("bg-success"); // Adiciona a classe de fundo verde
+            } else if (registro.uso >= 50 && registro.uso <= 80) {
+                valores_Bar[0].style.width = (registro.uso) + "%";
+                valores_Bar[0].classList.remove("bg-success");
+                valores_Bar[0].classList.remove("bg-danger");
+                valores_Bar[0].classList.add("bg-warning"); // Adiciona a classe de fundo amarelo
+            } else {
+                valores_Bar[0].style.width =(registro.uso) + "%";
+                valores_Bar[0].classList.remove("bg-success");
+                valores_Bar[0].classList.remove("bg-warning");
+                valores_Bar[0].classList.add("bg-danger"); // Adiciona a classe de fundo vermelho
+            }
             valores_kpi_desempenho[0].innerHTML = (registro.uso) + "%";
         }
         if (registro.recurso === "RAM") {
             valores[1].innerHTML = (registro.uso) + "%";
-            valores_Bar[1].style.width = (registro.uso) + "%";
+
+            if (registro.uso < 80) {
+                valores_Bar[1].style.width = (registro.uso) + "%";
+                valores_Bar[1].classList.remove("bg-warning");
+                valores_Bar[1].classList.remove("bg-danger");
+                valores_Bar[1].classList.add("bg-success"); // Adiciona a classe de fundo verde
+            } else if (registro.uso >= 80 && registro.uso <= 90) {
+                valores_Bar[1].style.width = (registro.uso) + "%";
+                valores_Bar[1].classList.remove("bg-success");
+                valores_Bar[1].classList.remove("bg-danger");
+                valores_Bar[1].classList.add("bg-warning"); // Adiciona a classe de fundo amarelo
+            } else {
+                valores_Bar[1].style.width =(registro.uso) + "%";
+                valores_Bar[1].classList.remove("bg-success");
+                valores_Bar[1].classList.remove("bg-warning");
+                valores_Bar[1].classList.add("bg-danger"); // Adiciona a classe de fundo vermelho
+            }
+
             valores_kpi_desempenho[1].innerHTML = (registro.uso) + "%";
         }
         if (registro.recurso === "CPU") {
             valores[2].innerHTML = (registro.uso) + "%";
-            valores_Bar[2].style.width = (registro.uso) + "%";
+
+            if (registro.uso < 15) {
+                valores_Bar[2].style.width = (registro.uso) + "%";
+                valores_Bar[2].classList.remove("bg-warning");
+                valores_Bar[2].classList.remove("bg-danger");
+                valores_Bar[2].classList.add("bg-success"); // Adiciona a classe de fundo verde
+            } else if (registro.uso >= 15 && registro.uso <= 30) {
+                valores_Bar[2].style.width = (registro.uso) + "%";
+                valores_Bar[2].classList.remove("bg-success");
+                valores_Bar[2].classList.remove("bg-danger");
+                valores_Bar[2].classList.add("bg-warning"); // Adiciona a classe de fundo amarelo
+            } else {
+                valores_Bar[2].style.width =(registro.uso) + "%";
+                valores_Bar[2].classList.remove("bg-success");
+                valores_Bar[2].classList.remove("bg-warning");
+                valores_Bar[2].classList.add("bg-danger"); // Adiciona a classe de fundo vermelho
+            }
+
+
             valores_kpi_desempenho[2].innerHTML = (registro.uso) + "%";
         }
 
@@ -142,6 +193,7 @@ function plotarGraficoDesempenho(resposta, idMaquina) {
     } else {
         metrica_lat.style.color = 'red';
     }
+
 
 
 

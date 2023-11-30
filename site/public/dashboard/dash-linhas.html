@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="css/dash-linhas.css" rel="stylesheet">
     <link rel="shortcut icon" href="img/metro logo.png" type="image/x-icon">
 
 </head>
@@ -427,43 +428,53 @@
 
                     <div class="d-sm-flex align-items-center justify-content-between mb-3">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard Linhas do metrô
-                            <select name="selMachine" id="select_maquina"
+                            <label id="select" for="">Escolha a Linha desejada:</label>
+                            <select name="selMachine" id="select_linha"
                                 class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-                                style="margin-left: 186%;">
+                                style="margin-left: 176%;">
                             </select>
                     </div>
 
                     <div class="row">
-                   <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-primary shadow h-100 py-2">
+                        <!-- KPI USO DE RAM -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary-dash text-uppercase mb-1"
-                                                style=" margin-top: -6%; color: #170b2a;" >
-                                                TEMPERATURA</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="temp_kpi"
-                                                style=" margin-top: 2%;">X</div>
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                RAM</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="ram_kpi">X%</div>
+                                            <span class="mr-2">
+                                                <i class="fas fa-circle" id="metrica_ram" style="border-radius: 300px;"
+                                                    onload="metricas()"></i>
+                                            </span>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-temperature-high fa-2x text-gray-300"></i>
+                                            <i class="fas fa-memory fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-<!-- KPI USO DE CPU -->
+
+
+                        <!-- KPI USO DE CPU -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1" style="color: #2510a3;">CPU
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">CPU
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
                                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
-                                                        id="uso_cpu_kpi">X</div>
+                                                        id="uso_cpu_kpi">X%</div>
+                                                    <span class="mr-2">
+                                                        <i class="fas fa-circle" id="metrica_cpu"
+                                                            style="border-radius: 300px;" onload="metricas()"></i>
+                                                    </span>
                                                 </div>
 
                                             </div>
@@ -475,18 +486,27 @@
                                 </div>
                             </div>
                         </div>
+
+
+
+
+
                         <!-- KPI USO DE RAM -->
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-success shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1" style="color: #338dff;">
-                                                RAM</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="ram_kpi">X%</div>
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                MegaBytes Enviados</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="bytes_enviados_kpi">
+                                                X</div>
+                                            <!-- <span class="mr-2">
+                                                    <i class="fas fa-circle" id="metrica_disco"  style="border-radius: 300px;" onload="metricas()"></i>
+                                                </span> -->
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-memory fa-2x text-gray-300"></i>
+                                            <i class="fas fa-file-upload fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -494,77 +514,79 @@
                         </div>
 
 
-                             <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-dark shadow h-100 py-2">
+                        <!-- KPI USO DE CPU -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary-dash text-uppercase mb-1"
-                                            style="color:#87CEFA; margin-top: -6%;" >
-                                                JANELAS ABERTAS</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="janelas_kpi"
-                                                style=" margin-top: 2%;">X</div>
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                MegaBytes
+                                                Recebidos
+                                            </div>
+                                            <div class="row no-gutters align-items-center">
+                                                <div class="col-auto">
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                                                        id="bytes_recebidos_kpi">X</div>
+                                                    <!-- <span class="mr-2">
+                                                            <i class="fas fa-circle" id="metrica_disco"  style="border-radius: 300px;" onload="metricas()"></i>
+                                                        </span> -->
+                                                </div>
+
+                                            </div>
                                         </div>
                                         <div class="col-auto">
-                                            <i class="fas fa-file fa-2x text-gray-300"></i>
+                                            <i class="fas fa-file-download fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                <div class="row">
-                    <div class="col-lg-6">
-
-                        <div class="card mb-3 py-3 border-bottom-primary">
-                            <div class="card-body" style="height: 6px;" >
-                                <div class="text-xs font-weight-bold text-primary-dash text-uppercase mb-1"
-                                style="color:	#4682B4; margin-top: -7%;">
-                                    DATA DO ÚLTIMO DESLIGAMENTO</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="xxx"
-                                    >X</div>
-                            </div>
-                                                  
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-
-                        <div class="card mb-3 py-3 border-bottom-primary">
-                            <div class="card-body" style="height: 6px;" >
-                                <div class="text-xs font-weight-bold text-primary-dash text-uppercase mb-1"
-                                style="color:#87CEFA; margin-top: -7%;">
-                                    ESCOLHER KPI</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="xxx"
-                                    >X</div>
-                            </div>
-                                                  
-                        </div>
-                    </div>
-                </div>
-               
-
-                    
-                    
 
                     <div class="row">
 
                         <!-- Area Chart -->
                         <div class="col-xl-6 col-lg-7">
-                            
-                            <div class="card shadow mb-4" style="margin-left: 2px; width: 568px; height: 500px;">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary-dash">Temperatura (°C)</h6>
+                            <div class="card shadow mb-4">
+
+                                <!-- Card Header - Dropdown -->
+                                <div
+                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary-dash">Rede</h6>
+                                    <div class="dropdown no-arrow">
+                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                            aria-labelledby="dropdownMenuLink">
+                                            <div class="dropdown-header">Dropdown Header:</div>
+                                            <a class="dropdown-item" href="#">Action</a>
+                                            <a class="dropdown-item" href="#">Another action</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Something else here</a>
+                                        </div>
+
+                                    </div>
                                 </div>
-                                <div class="card-body">
+                                <div class="mt-4 text-center small">
+                                    <!-- <span class="mr-2">
+                                        <i class="fas fa-circle text-primary"></i> MegaBytes Enviados
+                                    </span>
+                                    <span class="mr-2">
+                                        <i class="fas fa-circle text-success"></i> Bytes Recebidos
+                                    </span> -->
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body" style=" padding: 0.5rem;">
                                     <div class="chart-area">
-                                        <canvas id="myAreaChartTemp" style="height: 100%; width:100%;"></canvas>
+                                        <canvas id="myAreaChartRede" style="height: 100%; width:100%;"></canvas>
                                     </div>
                                 </div>
                                 <div class="mt-4 text-center small" style="height: 40px; margin-top: -2%;">
                                     <span class="mr-2">
-                                        <i class="fas fa-circle" style="font-size: 14px;color:#00FF00;"></i> Estável 
+                                        <i class="fas fa-circle" style="font-size: 14px;color:#00FF00;"></i> Estável
                                     </span>
                                     <span class="mr-2">
                                         <i class="fas fa-circle" style="font-size: 14px;color: #f6ff00;"></i>
@@ -575,224 +597,174 @@
                                     </span>
                                 </div>
                             </div>
-                        </div>
-                    
-
-                    <div class="card shadow mb-4" style="width: 570px;">
-                        <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary-dash"> Últimos 5 registros</h6>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable"  cellspacing="0">
-                                    <thead id="tabela_titulo_maquina">
-                                        <tr>
-                                            <th>Código da Máquina</th>
-                                            <th>Hostname</th>
-                                            <th>Temperatura</th>
-                                            <th>CPU</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tabela_maquinas">
-                                        <tr>
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-</div>
 
 
-
-        <div class="row">
-            <div class="card shadow mb-4" style="width: 1145px; margin-left: 26px;">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary-dash">Previsões de Temperatura</h6>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>Temperatura Atual</th>
-                                    <th>Probabilidade Positiva</th>
-                                    <th>Probabilidade Negativa</th>
-                              
-                                </tr>
-                            </thead>
-                            <tbody id="tabela_funcionarios">
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-                <!-- Content Row -->
-                <div class="row">
-
-                    <!-- Content Column -->
-                    <div class="col-lg-6 mb-4">
-
-                        <!-- Project Card Example -->
-                        <div class="card shadow mb-4" style="margin-left: 25px; width: 1152px; display: none;">
-                            <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary-dash">Visualização de Desempenho Completo
-                                </h6>
-                            </div>
-                            <div class="card-body">
-                                <!--
-                                <h4 class="small font-weight-bold">Porcentagem de Perda de Pacotes<span class="float-right" id="perda_pacotes">10%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 10%"
-                                        aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" id="bar_perda_pacotes"></div>
-                                </div>-->
-                                <h4 class="small font-weight-bold"> Porcentagem de Uso de Disco Rígido <span
-                                        class="float-right" id="disco_rigido">40%</span>
-                                </h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                        aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" id="bar_disco_rigido">
+                            <div class="card shadow mb-4" style="width: 545px;height: 500px;">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary-dash"> CPU (%)</h6>
+                                </div>
+                                <div class="card-body" style=" padding: 0.5rem;">
+                                    <div class="chart-area">
+                                        <canvas id="myAreaChartCPU" style="height: 100%; width:100%;"></canvas>
                                     </div>
                                 </div>
-                                <h4 class="small font-weight-bold"> graus de temp <span
-                                    class="float-right" id="temp_cpu">40%</span>
-                            </h4>
-                            <div class="progress mb-4">
-                                <div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
-                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" id="bar_temp">
+                                <div class="mt-4 text-center small" style="height: 40px; margin-top: -2%;">
+                                    <span class="mr-2">
+                                        <i class="fas fa-circle" style="font-size: 14px;color:#00FF00;"></i> Estável
+                                    </span>
+                                    <span class="mr-2">
+                                        <i class="fas fa-circle" style="font-size: 14px;color: #f6ff00;"></i>
+                                        Risco
+                                    </span>
+                                    <span class="mr-2">
+                                        <i class="fa fa-circle" style="font-size:14px;color:#FF0000"></i> Perigo
+                                    </span>
                                 </div>
                             </div>
-                                <h4 class="small font-weight-bold"> Porcentagem de Uso de Memória RAM<span
-                                        class="float-right" id="uso_memoria_ram">80%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                        aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
-                                        id="bar_uso_memoria_ram"></div>
-                                </div>
-                                <h4 class="small font-weight-bold"> Porcentagem de Uso de CPU <span class="float-right"
-                                        id="porcentagem_cpu">60%</span></h4>
-                                <div class="progress mb-4">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 80%"
-                                        aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"
-                                        id="bar_porcentagem_cpu"></div>
-                                </div>
-                            </div>
+
                         </div>
 
-
-                        <div class="card shadow mb-4" style="margin-left: 25px; width: 1152px; display: none;">
+                        <div class="card shadow mb-4"
+                            style="margin-left: -0; width: 543px; height: 480px; margin-top: 0%;">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary-dash">Janelas Abertas</h6>
+                                <h6 class="m-0 font-weight-bold text-primary-dash">Linhas Cadastradas</h6>
                             </div>
-                            <div class="card-body" id="lista_janela">
-                                <!--  <h1 class="small font-weight-bold">XXX</h1>-->
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead id="tabela_titulo_maquina">
+                                            <tr>
+                                                <th>Código da Máquina</th>
+                                                <th>IP da Máquina</th>
+                                                <th>Hostname</th>
+                                                <th>Sistema Operacional</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabela_maquinas">
+                                            <tr>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
 
+                        
+                        <div class="card shadow mb-4"
+                            style="margin-left: -0; width: 543px; height: 498px;  position: relative; bottom: 81.5vh; left: 40vw;">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary-dash">Memória RAM (%)</h6>
+                            </div>
+                            <div class="card-body" style=" padding: 0.5rem;">
+                                <div class="chart-area">
+                                    <canvas id="myAreaChartRAM" style="height: 100%; width:100%;"></canvas>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-center small" style="height: 40px; margin-top: -2%;">
+                                <span class="mr-2">
+                                    <i class="fas fa-circle" style="font-size: 14px;color:#00FF00;"></i> Estável
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fas fa-circle" style="font-size: 14px;color: #f6ff00;"></i>
+                                    Risco
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fa fa-circle" style="font-size:14px;color:#FF0000"></i> Perigo
+                                </span>
+                            </div>
+                        </div>
 
                     </div>
 
+
+
                 </div>
 
+                <footer class="sticky-footer bg-white">
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>Copyright &copy; NOCLINE 2023</span>
+                        </div>
+                    </div>
+                </footer>
             </div>
 
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; NOCLINE 2023</span>
+
+        </div>
+
+
+
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+
+
+        <!-- End of Footer -->
+
+
+        <!-- End of Content Wrapper -->
+
+
+        <!-- End of Page Wrapper -->
+
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Deseja Sair?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Selecione "Sair" abaixo se estiver pronto para encerrar sua sessão atual.
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" onclick="limparSessao()" href="../login.html">Sair</a>
                     </div>
                 </div>
-            </footer>
-        </div>
-
-
-    </div>
-
-
-
-    <!-- End of Main Content -->
-
-    <!-- Footer -->
-
-
-    <!-- End of Footer -->
-
-
-    <!-- End of Content Wrapper -->
-
-
-    <!-- End of Page Wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Deseja Sair?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Selecione "Sair" abaixo se estiver pronto para encerrar sua sessão atual.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                    <a class="btn btn-primary" onclick="limparSessao()" href="../login.html">Sair</a>
-                </div>
             </div>
         </div>
-    </div>
 
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap core JavaScript-->
+        <script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Core plugin JavaScript-->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+        <!-- Custom scripts for all pages-->
+        <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
+        <!-- Page level plugins -->
+        <script src="vendor/chart.js/Chart.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-pie-demo.js"></script>
-    <script src="js/demo/chart-line-cpu.js"></script>
-    <script src="js/demo/chart-line-temp.js"></script>
-    <script src="js/demo/chart-line-ram.js"></script>
-    <script src="js/demo/chart-line-rede.js"></script>
-    <script src="js/demo/janelas.js"></script>
-    <script src="js/demo/desempenho.js"></script>
-    <script src="js/sessao.js"></script>
+        <!-- Page level custom scripts -->
+        <script src="js/demo/chart-pie-demo.js"></script>
+        <script src="js/demo/chart-line-cpu.js"></script>
+        <script src="js/demo/chart-line-temp.js"></script>
+        <script src="js/demo/chart-line-ram.js"></script>
+        <script src="js/demo/chart-line-rede.js"></script>
+        <script src="js/demo/janelas.js"></script>
+        <script src="js/demo/desempenho.js"></script>
+        <script src="js/sessao.js"></script>
 </body>
 
 </html>
 <script>
     window.onload = async function () {
         try {
-            await validarSessao();
-            exibirMaquinas();
-            var elemento_maquina = document.getElementById("select_maquina");
-            var idMaquina = elemento_maquina.value;
-            await obterDadosRAM(idMaquina);
-            await obterDadosCPU(idMaquina);
-            await obterDadosTemp(idMaquina);
-            // await obterDadosDisco(idMaquina);
-            await obterDadosDesempenhoTemp(idMaquina);
-            await obterDadosJanela(idMaquina);
-            // await obterDadosRede(idMaquina);
-            
+            // await validarSessao();
+            exibirLinhasDash();
         } catch (error) {
             console.error("Erro no carregamento da página: " + error.message);
         }

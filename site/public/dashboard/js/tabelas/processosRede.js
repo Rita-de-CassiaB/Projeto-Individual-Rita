@@ -34,9 +34,9 @@ function atualizarFeed(idMaquina) {
                     var bytes_recebidos = novaLinha.insertCell(3);
 
                     PID.innerHTML = processo.pid;
-                    nome_processo.innerHTML = processo.uso_cpu;
-                    bytes_enviados.innerHTML = processo.uso_memoria;
-                    bytes_recebidos.innerHTML = processo.memoria_virtual;
+                    nome_processo.innerHTML = processo.nome_processo;
+                    bytes_enviados.innerHTML = processo.bytes_enviados;
+                    bytes_recebidos.innerHTML = processo.bytes_recebidos;
                 }
                 const pagina_atualElement = document.getElementById("pagina_atual");
                 pagina_atualElement.textContent = `Página ${pagina_atual}`;

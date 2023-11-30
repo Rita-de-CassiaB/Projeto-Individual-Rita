@@ -3,7 +3,6 @@ var router = express.Router();
 
 var RedeController = require("../controllers/RedeController");
 
-
 router.get("/ultimasREDE/:idMaquina", function (req, res) {
     RedeController.buscarUltimasMedidasRede(req, res);
 });
@@ -21,11 +20,11 @@ router.get("/tempo-realRedeP/:idMaquina", function (req, res) {
 })
 
 router.get("/ultimasDesempenho/:idMaquina", function (req, res) {
-    RedeController.buscarUltimasMedidasDesempenhoR(req, res);
+    redeController.buscarUltimasMedidasDesempenhoR(req, res);
 });
 
 router.get("/tempo-realDesempenho/:idMaquina", function (req, res) {
-    RedeController.buscarMedidasEmTempoRealDesempenhoR(req, res);
+    redeController.buscarMedidasEmTempoRealDesempenhoR(req, res);
 })
 
 router.get("/ultimasRedeProcessos/:idMaquina", function (req, res) {
@@ -37,7 +36,7 @@ router.get("/tempo-realRedeProcessos/:idMaquina", function (req, res) {
 })
 
 router.get("/listar/:idEmpresa/:idMaquina", function (req, res) {
-    processosController.listarProcessos(req, res);
+    processosController.listarProcessosRede(req, res);
 });
 
 

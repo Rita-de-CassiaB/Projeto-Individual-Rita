@@ -49,6 +49,36 @@ function exibirMaquinas() {
     console.log(select.value)
 }
 
+function exibirLinhas() {
+    select = document.getElementById("select_linha");
+    JSON.parse(sessionStorage.Linhas).forEach(item => {
+        var opcao = document.createElement('option');
+        opcao.value = item.id_linha;
+        opcao.innerHTML = "Nome da Linha: " + item.nome;
+        select.appendChild(opcao);
+
+        if (item === 0) {
+            opcao.selected = true;
+        }
+    });
+    console.log(select.value)
+}
+
+function exibirLinhasDash() {
+    select = document.getElementById("select_linha");
+    JSON.parse(sessionStorage.Linhas).forEach(item => {
+        var opcao = document.createElement('option');
+        opcao.value = item.id_linha;
+        opcao.innerHTML = `Linha: ${item.numero} ` + item.nome;
+        select.appendChild(opcao);
+
+        if (item === 0) {
+            opcao.selected = true;
+        }
+    });
+    console.log(select.value)
+}
+
 function exibirPerfil(){
     var ni = ""
 

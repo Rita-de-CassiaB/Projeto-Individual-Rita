@@ -13,66 +13,73 @@ function entrar(req, res) {
     } else {
 
         usuarioModel.entrar(email, senha)
-            .then(
-                function (resultado) {
-                    console.log(`\nResultados encontrados: ${resultado.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
+            .then(function (resultado) {
+                console.log(`\nResultados encontrados: ${resultado.length}`);
+                console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
 
-                    if (resultado.length == 1) {
-                        empresaModel.buscarMaquinasPorEmpresa(resultado[0].fk_empresa)
-                            .then((resultadoMaquina) => {
-                                if (resultadoMaquina.length > 0) {
-                                    res.json({
-                                        nome: resultado[0].nome,
-                                        senha: resultado[0].senha,
-                                        email: resultado[0].email,
-                                        celular: resultado[0].celular,
-                                        id_colaborador: resultado[0].id_colaborador,
-                                        razao_social: resultado[0].razao_social,
-                                        cnpj: resultado[0].cnpj,
-                                        fk_nivel_acesso: resultado[0].fk_nivel_acesso,
-                                        fk_empresa: resultado[0].fk_empresa,
-                                        data_inicio: resultado[0].data_inicio,
-                                        data_termino: resultado[0].data_termino,
-                                        nome_plano: resultado[0].nome_plano,
-                                        preco_total: resultado[0].preco_total,
-                                        maquina: resultadoMaquina
+                if (resultado.length == 1) {
+                    empresaModel.buscarMaquinasPorEmpresa(resultado[0].fk_empresa)
+                        .then((resultadoMaquina) => {
+                            if (resultadoMaquina.length > 0) {
+                                return empresaModel.buscarLinhasPorEmpresa(resultado[0].fk_empresa)
+                                    .then((resultadolinha) => {
+                                        return {
+                                            nome: resultado[0].nome,
+                                            senha: resultado[0].senha,
+                                            email: resultado[0].email,
+                                            celular: resultado[0].celular,
+                                            id_colaborador: resultado[0].id_colaborador,
+                                            razao_social: resultado[0].razao_social,
+                                            cnpj: resultado[0].cnpj,
+                                            fk_nivel_acesso: resultado[0].fk_nivel_acesso,
+                                            fk_empresa: resultado[0].fk_empresa,
+                                            data_inicio: resultado[0].data_inicio,
+                                            data_termino: resultado[0].data_termino,
+                                            nome_plano: resultado[0].nome_plano,
+                                            preco_total: resultado[0].preco_total,
+                                            maquina: resultadoMaquina,
+                                            linha: resultadolinha
+                                        };
                                     });
-                                } else {
-                                    res.json({
-                                        nome: resultado[0].nome,
-                                        senha: resultado[0].senha,
-                                        email: resultado[0].email,
-                                        celular: resultado[0].celular,
-                                        id_colaborador: resultado[0].id_colaborador,
-                                        razao_social: resultado[0].razao_social,
-                                        cnpj: resultado[0].cnpj,
-                                        fk_nivel_acesso: resultado[0].fk_nivel_acesso,
-                                        fk_empresa: resultado[0].fk_empresa,
-                                        data_inicio: resultado[0].data_inicio,
-                                        data_termino: resultado[0].data_termino,
-                                        nome_plano: resultado[0].nome_plano,
-                                        preco_total: resultado[0].preco_total,
-                                        maquina: []
-                                    });
-                                }
-                            })
-                    } else if (resultado.length == 0) {
-                        res.status(403).send("Email e/ou senha inválido(s)");
-                    } else {
-                        res.status(403).send("Mais de um usuário com o mesmo login e senha!");
-                    }
+                            } else {
+                                return {
+                                    nome: resultado[0].nome,
+                                    senha: resultado[0].senha,
+                                    email: resultado[0].email,
+                                    celular: resultado[0].celular,
+                                    id_colaborador: resultado[0].id_colaborador,
+                                    razao_social: resultado[0].razao_social,
+                                    cnpj: resultado[0].cnpj,
+                                    fk_nivel_acesso: resultado[0].fk_nivel_acesso,
+                                    fk_empresa: resultado[0].fk_empresa,
+                                    data_inicio: resultado[0].data_inicio,
+                                    data_termino: resultado[0].data_termino,
+                                    nome_plano: resultado[0].nome_plano,
+                                    preco_total: resultado[0].preco_total,
+                                    maquina: []
+                                    // linha: []
+                                };
+                            }
+                        })
+                        .then((result) => res.json(result))
+                        .catch((err) => {
+                            console.error(err);
+                            res.status(500).json({ error: "Erro interno ao buscar linhas por empresa." });
+                        });
+                } else if (resultado.length == 0) {
+                    res.status(403).send("Email e/ou senha inválido(s)");
+                } else {
+                    res.status(403).send("Mais de um usuário com o mesmo login e senha!");
                 }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+            })
+            .catch(function (erro) {
+                console.error(erro);
+                console.error("\nHouve um erro ao realizar o login! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            });
     }
-
 }
+
 
 function cadastrarEmpresa(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
@@ -276,11 +283,28 @@ function cadastrarLinha(req, res) {
     }
     else {
         usuarioModel.cadastrarLinha(codEmpresa, nome, numero)
-            .catch(function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar o cadastro de Linhas! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            });
+        .then(function (resultado) {
+            empresaModel.buscarLinhasPorEmpresa(codEmpresa)
+                .then(function (resultadolinha) {
+                    if (resultadolinha.length > 0) {
+                        res.json({
+                            linha: resultadolinha
+                        });
+                    } else {
+                        res.json(resultado);
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                    console.log("Houve um erro ao buscar Linhas da empresa! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                });
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar o cadastro de máquina! Erro: ", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        });
     }
 }
 
@@ -294,6 +318,7 @@ function cadastrarMaquina(req, res) {
     var modelo = req.body.maquinaModeloServer;
     var ip = req.body.maquinaIPServer;
     var hostname = req.body.maquinaHostnameServer;
+    var fkLinha = req.body.linhaFKServer;
 
 
     // Faça as validações dos valores
@@ -309,9 +334,11 @@ function cadastrarMaquina(req, res) {
         res.status(400).send("Sua email de senha está undefined!");
     } else if (hostname == undefined) {
         res.status(400).send("Sua email de senha está undefined!");
+    } else if (fkLinha == undefined) {
+        res.status(400).send("Sua email de senha está undefined!");
     }
     else {
-        usuarioModel.cadastrarMaquina(codEmpresa, setor, so, modelo, ip, hostname)
+        usuarioModel.cadastrarMaquina(codEmpresa, setor, so, modelo, ip, hostname, fkLinha)
             .then(function (resultado) {
                 empresaModel.buscarMaquinasPorEmpresa(codEmpresa)
                     .then(function (resultadoMaquina) {
@@ -363,11 +390,23 @@ function alterarLinha(req, res) {
     }
     else {
         usuarioModel.alterarLinha(codEmpresa, id, nome, numero)
-            .catch(function (erro) {
-                console.log(erro);
-                console.log("Houve um erro ao realizar o cadastro de Linha! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            });
+        .then(function (resultado) {
+            empresaModel.buscarLinhasPorEmpresa(codEmpresa)
+                .then(function (resultadolinha) {
+                    if (resultadolinha.length > 0) {
+                        res.json({
+                            linha: resultadolinha
+                        });
+                    } else {
+                        res.json(resultado);
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                    console.log("Houve um erro ao buscar Linhas da empresa! Erro: ", erro.sqlMessage);
+                    res.status(500).json(erro.sqlMessage);
+                });
+        })
     }
 }
 
@@ -383,6 +422,7 @@ function alterarMaquina(req, res) {
     var modelo = req.body.modeloServer;
     var setor = req.body.setorServer;
     var status = req.body.statusServer;
+    var fkLinha = req.body.linhaFKServer;
 
     // Faça as validações dos valores
     if (codEmpresa == undefined) {
@@ -399,9 +439,11 @@ function alterarMaquina(req, res) {
         res.status(400).send("Sua email de senha está undefined!");
     } else if (setor == undefined) {
         res.status(400).send("Sua email de senha está undefined!");
+    } else if (fkLinha == undefined) {
+        res.status(400).send("Sua email de senha está undefined!");
     }
     else {
-        usuarioModel.alterarMaquina(codEmpresa, id, so, ip, hostname, modelo, setor, status)
+        usuarioModel.alterarMaquina(codEmpresa, id, so, ip, hostname, modelo, setor, status, fkLinha)
             .then(function (resultado) {
                 empresaModel.buscarMaquinasPorEmpresa(codEmpresa)
                     .then(function (resultadoMaquina) {

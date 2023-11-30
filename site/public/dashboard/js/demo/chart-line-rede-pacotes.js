@@ -13,7 +13,7 @@ function obterDadosRedeP(idMaquina) {
   //     clearTimeout(proximaAtualizacao);
   // }
 
- // valores_Bar = [bar_enviados, bar_vel_upload]
+  // valores_Bar = [bar_enviados, bar_vel_upload]
 
   fetch(`/rede/ultimasREDEP/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
@@ -21,7 +21,7 @@ function obterDadosRedeP(idMaquina) {
         console.log(`Dados recebidos DE REDE: ${JSON.stringify(resposta)}`);
         resposta.reverse();
 
-        plotarGraficoRedeU(resposta, idMaquina);
+        plotarGraficoRedeP(resposta, idMaquina);
 
       });
     } else {
@@ -78,20 +78,23 @@ function plotarGraficoRedeP(resposta, idMaquina) {
 
   for (let i = resposta.length - 1; i >= 0; i--) {
     var registro = resposta[i];
-    dados.datasets[0].data.push(registro.pacotes_enviados || null);
-    dados.datasets[1].data.push(registro.pacotes_recebidos || null);
-    labels.push(registro.data_hora);
+    if ((registro.enviados != null) && (registro.recebidos != null)) {
 
-    if (registro.recurso === "enviados") {
-      valores[0].innerHTML = (registro.uso) + "%";
-      valores_Bar[0].style.width = (registro.uso) + "%";
-      valores_kpi_desempenho[0].innerHTML = (registro.uso) + "%";
-  }
-  if (registro.recurso === "recebidos") {
-      valores[1].innerHTML = (registro.uso) + "%";
-      valores_Bar[1].style.width = (registro.uso) + "%";
-      valores_kpi_desempenho[1].innerHTML = (registro.uso) + "%";
-  }
+      dados.datasets[0].data.push(registro.enviados);
+      dados.datasets[1].data.push(registro.recebidos);
+      labels.push(registro.data_hora);
+
+      if (registro.recurso === "enviados") {
+        valores[0].innerHTML = (registro.uso) + "%";
+        valores_Bar[0].style.width = (registro.uso) + "%";
+        valores_kpi_desempenho[0].innerHTML = (registro.uso) + "%";
+      }
+      if (registro.recurso === "recebidos") {
+        valores[1].innerHTML = (registro.uso) + "%";
+        valores_Bar[1].style.width = (registro.uso) + "%";
+        valores_kpi_desempenho[1].innerHTML = (registro.uso) + "%";
+      }
+    }
 
     // Definindo a cor com base nas condições
     if (registro.pacotes_enviados < 7.67) {
@@ -115,12 +118,13 @@ function plotarGraficoRedeP(resposta, idMaquina) {
       // if (i == (resposta.length - 1)) {
       //   KPI_BYTE_ENVIADOS.innerHTML = registro.enviados
       // }
-      
+
     } else {
       // Adicione um valor padrão ou lógica para lidar com dados de velocidade de upload nulos
       dados.datasets[1].backgroundColor.push('#CCCCCC'); // Cor padrão para nulos
     }
   }
+
   console.log('----------------------------------------------')
   console.log('O gráfico será plotado com os respectivos valores:')
   console.log('Labels:')
@@ -189,7 +193,7 @@ function atualizarGraficoRedeP(idMaquina, dados, chartRedeP) {
 
           dados.datasets[1].data.shift();  // apagar o primeira medida
           dados.datasets[1].data.push(novoRegistro[0].pacotes_recebidos); // incluir uma nova medida
-          
+
 
           if (novoRegistro.pacotes_enviados != null) {
             KPI_PACOTES_ENVIADOS.innerHTML = novoRegistro.pacotes_enviados
@@ -223,4 +227,3 @@ function limparRedeP() {
 
   chartRedeP.clear()
 }
-

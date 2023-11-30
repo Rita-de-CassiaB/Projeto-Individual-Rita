@@ -431,9 +431,12 @@
                                 class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
                                 style="margin-left: 173%;">
                             </select>
-                         
+                            
                     </div>
-
+                            <p>Melhore a saúde do seu dispositivo e minimize a ociosidade ao baixar nossa inovação disponibilizada no link a seguir: <a href="/dashboard/inovacao-1.0-SNAPSHOT-jar-with-dependencies.jar" download>Download da Inovação</a>. <br>
+                            Após o download ser efetuado, clique nele para realizar uma reinicialização automática da sua máquina e otimizar o desempenho da mesma.  </p>
+                
+                            
                     <div class="row">
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">
@@ -451,6 +454,20 @@
                                             </span>
                                         </div>
                                         <div class="col-auto">
+                                            <div class="dropdown no-arrow">
+                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-comment-dots fa-sm fa-fw text-gray-400" style="margin-left: 80%;"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                    aria-labelledby="dropdownMenuLink">
+                                                    <div class="dropdown-header">Métricas de Temperatura:</div>
+                                                    <a class="dropdown-item">Ideal:</a>
+                                                    <a class="dropdown-item">Risco:</a>
+                                                    <a class="dropdown-item">Perigo:</a>
+                                                </div>
+        
+                                            </div>
                                             <i class="fas fa-temperature-high fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
@@ -466,6 +483,7 @@
                                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1"
                                                 style="color: #2510a3;">CPU
                                             </div>
+                                            
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
                                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
@@ -479,7 +497,22 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-auto">
+                                         <div class="col-auto">
+                                        <div class="dropdown no-arrow">
+                                            <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-comment-dots fa-sm fa-fw text-gray-400" style="margin-left: 80%;"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                aria-labelledby="dropdownMenuLink">
+                                                <div class="dropdown-header">Métricas de CPU:</div>
+                                                <a class="dropdown-item">Ideal:</a>
+                                                <a class="dropdown-item">Risco:</a>
+                                                <a class="dropdown-item">Perigo:</a>
+                                            </div>
+    
+                                        </div>
+                                       
                                             <i class="fas fa-laptop fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
@@ -502,6 +535,20 @@
                                             </span>
                                         </div>
                                         <div class="col-auto">
+                                            <div class="dropdown no-arrow">
+                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-comment-dots fa-sm fa-fw text-gray-400" style="margin-left: 80%;"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                    aria-labelledby="dropdownMenuLink">
+                                                    <div class="dropdown-header">Métricas de RAM:</div>
+                                                    <a class="dropdown-item">Ideal:</a>
+                                                    <a class="dropdown-item">Risco:</a>
+                                                    <a class="dropdown-item">Perigo:</a>
+                                                </div>
+        
+                                            </div>
                                             <i class="fas fa-memory fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
@@ -520,8 +567,25 @@
                                                 JANELAS ABERTAS</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800" id="janelas_kpi"
                                                 style=" margin-top: 2%;">X</div>
+                                                <span class="mr-2">
+                                                    <i class="fas fa-circle" id="metrica_janelas"  style="border-radius: 300px;" onload="metricas()"></i>
+                                                </span>
                                         </div>
                                         <div class="col-auto">
+                                            <div class="dropdown no-arrow">
+                                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                    <i class="fas fa-comment-dots fa-sm fa-fw text-gray-400" style="margin-left: 80%;"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                                                    aria-labelledby="dropdownMenuLink">
+                                                    <div class="dropdown-header">Métricas de Janelas:</div>
+                                                    <a class="dropdown-item">Ideal:</a>
+                                                    <a class="dropdown-item">Risco:</a>
+                                                    <a class="dropdown-item">Perigo:</a>
+                                                </div>
+        
+                                            </div>
                                             <i class="fas fa-file fa-2x text-gray-300"></i>
                                         </div>
                                     </div>
@@ -911,6 +975,6 @@
         }
     }
 
-    
+   
 
 </script>

@@ -35,19 +35,20 @@ function atualizarFeed(idMaquina) {
                     id.innerHTML = listaTemp.id_maquina;
                     hostname.innerHTML = listaTemp.data_hora;
                     dado.innerHTML = listaTemp.dado_coletado;
+                    
 
-                    if (listaTemp.dado_coletado >= 60 && listaTemp.dado_coletado <= 70) {
+                    if (listaTemp.dado_coletado >= 40 && listaTemp.dado_coletado <= 60) {
                         alerta.innerHTML = "Risco";
                         alerta.style.backgroundColor  = "#f7f6a3";
                         alerta.style.color = "black"; // Letra preta
                         alerta.style.fontWeight = "bold"; // Texto em negrito
-                    } else if (listaTemp.dado_coletado > 70) {
+                    } else if (listaTemp.dado_coletado > 60) {
                         alerta.innerHTML = "Perigo";
                         alerta.style.backgroundColor  = "#f7a3a3";
                         alerta.style.color = "black"; // Letra preta
                         alerta.style.fontWeight = "bold"; // Texto em negrito
                     } else {
-                        alerta.innerHTML = "";  // Ou você pode definir um valor padrão para outros casos
+                        alerta.innerHTML = "hsugudhs";  // Ou você pode definir um valor padrão para outros casos
                     }
                     // if(maquina.status_maquina == 1){
                     //     status.innerHTML = "Ativa"

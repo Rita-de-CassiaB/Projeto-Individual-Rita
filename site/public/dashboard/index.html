@@ -81,7 +81,7 @@
                         <a class="collapse-item" href="../dashboard/index.html">Visão Micro</a>
                         <a class="collapse-item" href="../dashboard/dash-temperatura.html">CPU x Temperatura</a>
                         <a class="collapse-item" href="../dashboard/dash-rede.html">Rede</a>
-                        <a class="collapse-item" href="">marcos</a>
+                        <a class="collapse-item" href="./dash-rendimento-processador.html">Rendimento do Processador</a>
                     </div>
                 </div>
             </li>
@@ -281,40 +281,7 @@
                                 <h6 class="dropdown-header">
                                     Central de Alertas
                                 </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                
                             </div>
                         </li>
 
@@ -522,9 +489,9 @@
                                                 JANELAS ABERTAS</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800" id="janelas_kpi"
                                                 style=" margin-top: 2%;">X</div>
-                                            <!-- <span class="mr-2">
-                                                    <i class="fas fa-circle" id="metrica_disco"  style="border-radius: 300px;" onload="metricas()"></i>
-                                                </span> -->
+                                            <span class="mr-2">
+                                                    <i class="fas fa-circle" id="metrica_janelas"  style="border-radius: 300px;" onload="metricas()"></i>
+                                                </span>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-file fa-2x text-gray-300"></i>
@@ -545,9 +512,9 @@
                                                 MegaBytes Enviados</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800" id="bytes_enviados_kpi">
                                                 X</div>
-                                            <!-- <span class="mr-2">
-                                                    <i class="fas fa-circle" id="metrica_disco"  style="border-radius: 300px;" onload="metricas()"></i>
-                                                </span> -->
+                                            <span class="mr-2">
+                                                    <i class="fas fa-circle" id="metrica_enviados"  style="border-radius: 300px;" onload="metricas()"></i>
+                                                </span>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-file-upload fa-2x text-gray-300"></i>
@@ -572,9 +539,9 @@
                                                 <div class="col-auto">
                                                     <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
                                                         id="bytes_recebidos_kpi">X</div>
-                                                    <!-- <span class="mr-2">
-                                                            <i class="fas fa-circle" id="metrica_disco"  style="border-radius: 300px;" onload="metricas()"></i>
-                                                        </span> -->
+                                                    <span class="mr-2">
+                                                            <i class="fas fa-circle" id="metrica_recebidos"  style="border-radius: 300px;" onload="metricas()"></i>
+                                                        </span>
                                                 </div>
 
                                             </div>
@@ -932,9 +899,6 @@
     // }
 
 
-
-
-    // window.addEventListener('load', metricas);
 
 
 </script>

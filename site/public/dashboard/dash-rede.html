@@ -795,8 +795,8 @@
     <script src="js/demo/chart-line-rede-pacotes.js"></script>
     <script src="js/demo/desempenho.js"></script>
     <script src="js/demo/chart-pie-rede-processos.js"></script>
-    <script src="js/sessao.js"></script>
     <script src="js/tabelas/processosRede.js"></script>
+    <script src="js/sessao.js"></script>
 </body>
 
 </html>
@@ -814,6 +814,7 @@
             await obterDadosRede(idMaquina);
             await obterDadosRPE(idMaquina);
             await obterDadosRPR(idMaquina);
+            await atualizarFeed(idMaquina);
         } catch (error) {
             console.error("Erro no carregamento da página: " + error.message);
         }
@@ -840,9 +841,10 @@
             await obterDadosRedeD(idMaquina);
             await obterDadosRede(idMaquina);
             await obterDadosRedeO(idMaquina);
-            await obterDadosRPE(idMaquina);
-            await obterDadosRPR(idMaquina);
+            await obterDadosRPE(idMaquina); //Processos e bytes gráfico pizza
+            await obterDadosRPR(idMaquina); // Processos e bytes grafico pizza
             await obterDadosP(idMaquina);
+            await atualizarFeed(idMaquina);
         } catch (error) {
             console.error("Erro no carregamento da página: " + error.message);
         }

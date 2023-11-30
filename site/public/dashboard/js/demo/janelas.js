@@ -40,6 +40,18 @@ function plotarListaJanela(resposta, idMaquina) {
         janelas_kpi.innerHTML = quantidade_janelas_visiveis
         setTimeout(() => atualizarListaJanela(idMaquina, quantidade_janelas), 2000);
     }
+
+         // BOLINHA METRICA DENTRO DA KPI RECEBIDOS
+         var janelasKpi = parseFloat(document.getElementById('janelas_kpi').innerText.trim());
+         var metricaJan= document.getElementById('metrica_janelas');
+     
+         if (janelasKpi < 1) {
+            metricaJan.style.color = '#00FF00';
+         } else if (janelasKpi >= 1 && janelasKpi < 3) {
+            metricaJan.style.color = '#f6ff00';
+         } else {
+            metricaJan.style.color = '#FF0000';
+         }
 }
 
 function atualizarListaJanela(idMaquina, quantidade_janelas) {

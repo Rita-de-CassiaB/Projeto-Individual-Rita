@@ -83,7 +83,7 @@
                                 <div class="form-group">
                                     <h8 style="font-size: 15px; margin-left: 16px;">Linha a qual essa máquina pertence
                                     </h8>
-                                    <div class="col-sm-6 mb-3 mb-sm-0" style="margin-left: 16px;">
+                                    <div class="col-sm-6 mb-3 mb-sm-0" style="margin-right: 8vh; margin-top: 2vh;">
                                         <select name="selMachine" id="select_linha"
                                             class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
                                             style="margin-left: 10%;">
@@ -135,6 +135,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script src="js/sessao.js"></script>
 
 </body>
 
@@ -145,10 +146,8 @@
 
     window.onload = async function () {
         try {
-            await validarSessao();
-            exibirMaquinas();
-            var elemento_linha = document.getElementById("select_linha");
-            var idLinha = elemento_linha.value;
+           // await validarSessao();
+            exibirLinhas();
         } catch (error) {
             console.error("Erro no carregamento da página: " + error.message);
         }
@@ -160,6 +159,7 @@
         var maquinaModeloMVar = input_maquina_modelo.value;
         var maquinaIPMVar = input_maquina_ip.value;
         var maquinaHostnameVar = input_maquina_hostname.value;
+        var linhaFKVar = select_linha.value
         var setorMVar = "CCO"
         if (input_setor2.checked) {
             setorMVar = "SSO"
@@ -168,6 +168,8 @@
         if (input_so2.checked) {
             soMVar = "Windows"
         }
+        var elemento_linha = document.getElementById("select_linha");
+        var idLinha = elemento_linha.value;
 
 
 
@@ -183,6 +185,7 @@
                 maquinaModeloServer: maquinaModeloMVar,
                 maquinaIPServer: maquinaIPMVar,
                 maquinaHostnameServer: maquinaHostnameVar,
+                linhaFKServer: linhaFKVar,
                 setorMServer: setorMVar,
                 soMServer: soMVar
             })

@@ -161,7 +161,7 @@ while not event.is_set():
                                     print(mycursor.rowcount, "registros atualizados no banco (processos)")
                                     print("\r\n")
 
-                            time.sleep(5)
+                            time.sleep(30)
 
                 except mysql.connector.Error as e:
                     print("Erro ao conectar com o MySQL:", e)

@@ -15,7 +15,7 @@ function entrar(email, senha) {
      left join contrato on fk_empresaCo = id_empresa
      left join plano on fk_plano = id_plano
     WHERE (email = '${email}' AND senha = '${senha}') ;
-    `;
+    `; 
     console.log("Executando a instrução SQL: \n" + instrucao);
     
     return database.executar(instrucao);
@@ -80,17 +80,17 @@ function cadastrarLinha(codEmpresa,nome, numero) {
 
 }
 
-function cadastrarMaquina(codEmpresa, setor, so, modelo, ip, hostname) {
+function cadastrarMaquina(codEmpresa, setor, so, modelo, ip, hostname, fkLinha) {
 
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarEndereco():",     //  e na ordem de inserção dos dados.
     );
 
     var instrucao = `
-    INSERT INTO maquina (ip, so, hostname, modelo, setor, status_maquina, fk_empresaM) VALUES ( '${ip}', '${so}', '${hostname}', '${modelo}', '${setor}', 1,${codEmpresa});
+    INSERT INTO maquina (ip, so, hostname, modelo, setor, status_maquina, fk_empresaM, fk_linhaM) VALUES ( '${ip}', '${so}', '${hostname}', '${modelo}', '${setor}', 1,${codEmpresa},${fkLinha});
     `;
 
     var instrucao2 = `
-    INSERT INTO componente VALUES
+    INSERT INTO componente (id_componente, nome_componente, fk_maquina_componente, fk_empresa_componente, fk_metrica_componente) VALUES
     (null, 'RAM', (select id_maquina from maquina where ip = '${ip}'), ${codEmpresa}, 1),
     (null, 'CPU', (select id_maquina from maquina where ip = '${ip}'), ${codEmpresa}, 2),
     (null, 'DISCO', (select id_maquina from maquina where ip = '${ip}'), ${codEmpresa}, 3),
@@ -114,11 +114,11 @@ function alterarLinha(codEmpresa, id, nome, numero) {
 
 }
 
-function alterarMaquina(codEmpresa, id, so, ip, hostname, modelo, setor, status) {
+function alterarMaquina(codEmpresa, id, so, ip, hostname, modelo, setor, status, fkLinha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrarColaborador():");
 
     var instrucao = `
-    UPDATE maquina set ip = '${ip}', so = '${so}', hostname = '${hostname}', setor = '${setor}', modelo = '${modelo}', status_maquina = ${status} where fk_empresaM = ${codEmpresa} and id_maquina = ${id};
+    UPDATE maquina set ip = '${ip}', so = '${so}', hostname = '${hostname}', setor = '${setor}', modelo = '${modelo}', status_maquina = ${status}, fk_linhaM = ${fkLinha} where fk_empresaM = ${codEmpresa} and id_maquina = ${id};
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucao);

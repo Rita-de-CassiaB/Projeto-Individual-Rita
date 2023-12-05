@@ -91,7 +91,15 @@ INSERT INTO componente (id_componente, nome_componente, fk_maquina_componente, f
 SELECT * FROM monitoramento;
 
 SELECT * FROM monitoramento;
+
+select * from VW_REDE_CHARTU
+        where id_maquina = 1
+        ORDER BY data_hora asc limit 1;
+        
+        
 -- alguns delete que eu precisei (gyu)
--- DELETE FROM alerta WHERE fk_componenente_alerta >= 1 AND fk_componenente_alerta <= 8400;
--- DELETE FROM monitoramento WHERE id_monitoramento >= 1 AND id_monitoramento <= 8400;
+DELETE FROM alerta WHERE fk_componenente_alerta >= 1 AND fk_componenente_alerta <= 2000;
+DELETE FROM monitoramento WHERE id_monitoramento >= 1 AND id_monitoramento <= 2000;
+
+select * from monitoramento;
 

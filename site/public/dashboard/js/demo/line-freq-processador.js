@@ -2,6 +2,7 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
+
 // Pie Chart Example    
 // var ctx = document.getElementById("myAreaChartCPU");
 
@@ -13,7 +14,7 @@ function obterDadosDaFrequencia(idMaquina) {
   //     clearTimeout(proximaAtualizacao);
   // }
 
-  fetch(`/processador/ultimasCPU/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+  fetch(`/processador/ultimasRAM/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
       if (response.ok) {
           response.json().then(function (resposta) {
               console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
@@ -31,6 +32,32 @@ function obterDadosDaFrequencia(idMaquina) {
       });
 }
 
+function obterDadosKPI(idMaquina) {
+    console.log("Frequencia-do-Processador ")
+    // if (proximaAtualizacao != undefined) {
+    //     clearTimeout(proximaAtualizacao);
+    // }
+  
+    fetch(`/processador/kpiUsoProcessador/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
+        if (response.ok) {
+            response.json().then(function (resposta) {
+                console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                resposta.reverse();
+  
+            var kpi_proc= document.getElementById("KPIprocessadorUso")
+            console.log(resposta)
+            kpi_proc.innerHTML = resposta[0].porcentagem
+  
+            });
+        } else {
+            console.error('Nenhum dado encontrado ou erro na API');
+        }
+    })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+        });
+  }
+  
 function plotarGraficoFrequencia(resposta, idMaquina) {
 
     console.log('iniciando plotagem do gráfico...');
@@ -154,3 +181,4 @@ function limparFrequencia(){
 
     chartFrequencia.clear()
 }
+

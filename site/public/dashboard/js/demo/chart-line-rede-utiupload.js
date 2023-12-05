@@ -92,20 +92,11 @@ function plotarGraficoRedeU(resposta, idMaquina) {
 
   for (let i = resposta.length - 1; i >= 0; i--) {
     var registro = resposta[i];
+
+    if (registro.enviados != null && registro.velocidade_upload != null) {
     dados.datasets[0].data.push(registro.enviados || null);
     dados.datasets[1].data.push(registro.velocidade_upload || null);
     labels.push(registro.data_hora);
-
-    if (registro.recurso === "enviados") {
-      valores[0].innerHTML = (registro.uso) + "%";
-      valores_Bar[0].style.width = (registro.uso) + "%";
-      valores_kpi_desempenho[0].innerHTML = (registro.uso) + "%";
-  }
-  if (registro.recurso === "velocidade_upload") {
-      valores[1].innerHTML = (registro.uso) + "%";
-      valores_Bar[1].style.width = (registro.uso) + "%";
-      valores_kpi_desempenho[1].innerHTML = (registro.uso) + "%";
-  }
 
     // Definindo a cor com base nas condições
     if (registro.enviados < 7.67) {
@@ -129,7 +120,7 @@ function plotarGraficoRedeU(resposta, idMaquina) {
       // if (i == (resposta.length - 1)) {
       //   KPI_BYTE_ENVIADOS.innerHTML = registro.enviados
       // }
-      
+    }
     } else {
       // Adicione um valor padrão ou lógica para lidar com dados de velocidade de upload nulos
       dados.datasets[1].backgroundColor.push('#CCCCCC'); // Cor padrão para nulos

@@ -12155,7 +12155,7 @@ a:focus {
 }
 
 .bg-register-linhas-image {
-    background: url(../img/mapaMetro.jpg);
+    background: url(../../assets/mapa-metro-1.webp);
     background-position: center;
     background-size: cover
 }
@@ -12666,4 +12666,8 @@ body.sidebar-toggled footer.sticky-footer {
     border-radius: 5px;
     margin-bottom: 80px;
     border-color: #000;
+  }
+
+  #select_janela{
+    height: max-content;
   }

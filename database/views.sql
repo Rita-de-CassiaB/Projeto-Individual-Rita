@@ -11,14 +11,20 @@ select * from VW_CPU_KOTLIN_CHART order by data_hora desc limit 5;
 select * from VW_RAM_CHART order by data_hora desc;
 select * from VW_DISCO_CHART;
 select * from VW_REDE_CHART;
+select * from VW_REDE_CHARTU;
 select * from VW_JANELAS_CHART;
 select * from VW_ALERTAS_TABLE;
 select * from VW_TEMP_CHART order by data_hora desc limit 5;
 select * from VW_DESEMPENHO_CHART;
 select * from VW_TEMPXCPU_CHART;
 select * from VW_DESEMPENHO_CHART_TEMP;
+select * from VW_REDE_CHARTU;
 
+select * from VW_REDE_CHARTU
+        where id_maquina = 1
+       limit 14;
 
+delete from VW_REDE_CHARTU where dado_coletado = 0;
 -- view CPU - py
 CREATE VIEW VW_CPU_CHART AS
 SELECT
@@ -123,29 +129,26 @@ WHERE
   AND M2.descricao = "disco total";
 
 -- view REDE
-CREATE VIEW VW_REDE_CHART AS
+CREATE OR REPLACE VIEW VW_REDE_CHART AS
 SELECT
-    DATE_FORMAT(monitoramento.data_hora, "%Y-%m-%d %H:%i:%s") as data_hora,
+    DATE_FORMAT(monitoramento.data_hora, "%H:%i:%s") as data_hora,
     ROUND(MAX(CASE WHEN monitoramento.descricao = 'bytes enviados' THEN monitoramento.dado_coletado / 1048576.0 END), 2) AS enviados,
     ROUND(MAX(CASE WHEN monitoramento.descricao = 'bytes recebidos' THEN monitoramento.dado_coletado / 1048576.0 END), 2) AS recebidos,
+	ROUND(MAX(CASE WHEN monitoramento.descricao = 'pacotes recebidos' THEN monitoramento.dado_coletado END), 2) AS pacotes_recebidos,
+    ROUND(MAX(CASE WHEN monitoramento.descricao = 'pacotes enviados' THEN monitoramento.dado_coletado END), 2) AS pacotes_enviados,
     componente.nome_componente,
     componente.fk_maquina_componente as id_maquina,
     MAX(maquina.hostname) AS hostname,
-    MAX(empresa.razao_social) AS razao_social,
-    -- Adicionando os novos dados
-    MAX(CASE WHEN monitoramento.descricao = 'velocidade de download' THEN ROUND(monitoramento.dado_coletado / 1000000, 2) END) AS velocidade_download,
-    MAX(CASE WHEN monitoramento.descricao = 'velocidade de upload' THEN ROUND(monitoramento.dado_coletado / 1000000, 2) END) AS velocidade_upload,
-    MAX(CASE WHEN monitoramento.descricao = 'ping' THEN monitoramento.dado_coletado END) AS ping,
-    MAX(CASE WHEN monitoramento.descricao = 'latencia' THEN monitoramento.dado_coletado END) AS latencia
+    MAX(empresa.razao_social) AS razao_social
 FROM
     monitoramento
 JOIN componente ON monitoramento.fk_componentes_monitoramento = componente.id_componente
 JOIN maquina ON monitoramento.fk_maquina_monitoramento = maquina.id_maquina
 JOIN empresa ON maquina.fk_empresaM = empresa.id_empresa
 WHERE
-    componente.nome_componente IN ('REDE', 'velocidade de download', 'velocidade de upload', 'ping', 'latencia')
+    componente.nome_componente IN ('REDE', 'bytes enviados', 'bytes recebidos', 'pacotes enviados', 'pacotes recebidos')
 GROUP BY
-    DATE_FORMAT(monitoramento.data_hora, "%Y-%m-%d %H:%i:%s"), componente.nome_componente, componente.fk_maquina_componente;
+    DATE_FORMAT(monitoramento.data_hora, "%H:%i:%s"), componente.nome_componente, componente.fk_maquina_componente;
 
 
 -- view janelas
@@ -304,7 +307,66 @@ WHERE
     AND monitoramento.descricao IN ('uso de cpu kt', 'temperatura cpu')
 GROUP BY
     DATE_FORMAT(monitoramento.data_hora, "%Y-%m-%d %H:%i:%s"), componente.nome_componente, componente.fk_maquina_componente;
+    
 
+
+ -- view Individual Rede Rita py
+ -- CREATE OR REPLACE VIEW VW_REDE_CHARTU AS
+SELECT
+    DATE_FORMAT(monitoramento.data_hora, "%H:%i:%s") AS data_hora,
+    ROUND(MAX(CASE WHEN monitoramento.descricao = 'velocidade de download' THEN monitoramento.dado_coletado / 1000000.0 END),5) AS velocidade_download,
+    ROUND(MAX(CASE WHEN monitoramento.descricao = 'velocidade de upload' THEN monitoramento.dado_coletado / 1000000.0 END),5) AS velocidade_upload,
+    MAX(CASE WHEN monitoramento.descricao = 'ping' THEN monitoramento.dado_coletado END) AS ping,
+    MAX(CASE WHEN monitoramento.descricao = 'latencia' THEN monitoramento.dado_coletado END) AS latencia,
+        ROUND(MAX(CASE WHEN monitoramento.descricao = 'bytes enviados py' THEN monitoramento.dado_coletado / 1048576.0 END), 5) AS enviados,
+    ROUND(MAX(CASE WHEN monitoramento.descricao = 'bytes enviados py' THEN monitoramento.dado_coletado / 1048576.0 END), 5) AS recebidos,
+    componente.nome_componente,
+    componente.fk_maquina_componente AS id_maquina,
+    MAX(maquina.hostname) AS hostname,
+    MAX(empresa.razao_social) AS razao_social
+FROM
+    monitoramento
+JOIN componente ON monitoramento.fk_componentes_monitoramento = componente.id_componente
+JOIN maquina ON monitoramento.fk_maquina_monitoramento = maquina.id_maquina
+JOIN empresa ON maquina.fk_empresaM = empresa.id_empresa
+WHERE
+    componente.nome_componente IN ('bytes enviados py', 'bytes recebidos py', 'REDE', 'velocidade de download', 'velocidade de upload', 'ping', 'latencia')
+GROUP BY
+    DATE_FORMAT(monitoramento.data_hora, "%H:%i:%s"), componente.nome_componente, componente.fk_maquina_componente;
+    
+    select * from monitoramento order by data_hora desc;
+
+-- CREATE VIEW VW_REDE_CHARTU  AS
+SELECT
+    DATE_FORMAT(monitoramento.data_hora, "%Y-%m-%d %H:%i:%s") AS data_hora,
+    ROUND(MAX(CASE WHEN monitoramento.descricao = 'velocidade de download' THEN IFNULL(monitoramento.dado_coletado / 1000000.0, 0) END), 5) AS velocidade_download,
+    ROUND(MAX(CASE WHEN monitoramento.descricao = 'velocidade de upload' THEN IFNULL(monitoramento.dado_coletado / 1000000.0, 0) END), 5) AS velocidade_upload,
+    MAX(CASE WHEN monitoramento.descricao = 'ping' THEN IFNULL(monitoramento.dado_coletado, 0) END) AS ping,
+    MAX(CASE WHEN monitoramento.descricao = 'latencia' THEN IFNULL(monitoramento.dado_coletado, 0) END) AS latencia,
+    ROUND(MAX(CASE WHEN monitoramento.descricao = 'bytes enviados py' THEN IFNULL(monitoramento.dado_coletado / 1048576.0, 0) END), 5) AS enviados,
+    ROUND(MAX(CASE WHEN monitoramento.descricao = 'bytes recebidos py' THEN IFNULL(monitoramento.dado_coletado / 1048576.0, 0) END), 5) AS recebidos,
+    componente.nome_componente,
+    componente.fk_maquina_componente AS id_maquina,
+    MAX(maquina.hostname) AS hostname,
+    MAX(empresa.razao_social) AS razao_social
+FROM
+    monitoramento
+JOIN componente ON monitoramento.fk_componentes_monitoramento = componente.id_componente
+JOIN maquina ON monitoramento.fk_maquina_monitoramento = maquina.id_maquina
+JOIN empresa ON maquina.fk_empresaM = empresa.id_empresa
+WHERE
+    componente.nome_componente IN ('bytes enviados py', 'bytes recebidos py', 'REDE', 'velocidade de download', 'velocidade de upload', 'ping', 'latencia')
+    AND monitoramento.dado_coletado IS NOT NULL  -- Adicionado para filtrar registros nulos
+GROUP BY
+    DATE_FORMAT(monitoramento.data_hora, "%Y-%m-%d %H:%i:%s"), componente.nome_componente, componente.fk_maquina_componente order by data_hora desc ;
+    
+    
+
+
+
+    
+    select * from VW_REDE_CHARTU
+        where id_maquina = 1  order by data_hora desc limit 9;
 
 
 

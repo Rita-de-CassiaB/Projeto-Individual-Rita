@@ -3,16 +3,11 @@ Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,Bli
 Chart.defaults.global.defaultFontColor = '#858796';
 
 // VAR PARA KPI
-var KPI_PING = document.getElementById("ping_kpi");
+var KPI_PING = document.getElementById("PING_KPI");
 var KPI_LAT = document.getElementById("lat_kpi");
 
-// VAR PARA MUDAR O VALOR DO DESEMPENHO
 var ping = document.getElementById("ping");
 var lat = document.getElementById("lat");
-
-// VAR PARA MUDAR O TAMANHO DA BARRA DE PROGRESSO
-var ping_bar = document.getElementById("bar_ping");
-var lat_bar = document.getElementById("bar_lat");
 
 var elemento_maquina = document.getElementById("select_maquina");
 var idMaquina = elemento_maquina.value;
@@ -21,13 +16,9 @@ var idMaquina = elemento_maquina.value;
 
 function obterDadosRedeO(idMaquina) {
   console.log("REDE")
-  // if (proximaAtualizacao != undefined) {
-  //     clearTimeout(proximaAtualizacao);
-  // }
 
-  valores_kpi_desempenho = [KPI_LAT, KPI_PING]
+  valores_kpi = [KPI_LAT, KPI_PING]
   valores = [ping, lat]
-  valores_Bar = [ping_bar, lat_bar]
 
   fetch(`/rede/ultimasREDE/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
@@ -84,7 +75,6 @@ function plotarGraficoRedeO(resposta, idMaquina) {
 
   // Inserindo valores recebidos em estrutura para plotar o gráfico
 
-
   console.log('Dados recebidos pela função plotarGraficoRedeO:');
   console.log(resposta);
 
@@ -92,47 +82,26 @@ function plotarGraficoRedeO(resposta, idMaquina) {
 
   for (let i = resposta.length - 1; i >= 0; i--) {
     var registro = resposta[i];
+    var xxx = [registro.ping, registro.latencia]
     dados.datasets[0].data.push(registro.ping);
     dados.datasets[1].data.push(registro.latencia);
     labels.push(registro.data_hora);
 
-    if (registro.recurso === "ping") {
-      valores[0].innerHTML = (registro.uso) + "%";
-      valores_Bar[0].style.width = (registro.uso) + "%";
-      valores_kpi_desempenho[0].innerHTML = (registro.uso) + "%";
-  }
-  if (registro.recurso === "latencia") {
-      valores[1].innerHTML = (registro.uso) + "%";
-      valores_Bar[1].style.width = (registro.uso) + "%";
-      valores_kpi_desempenho[1].innerHTML = (registro.uso) + "%";
-  }
-
     // Definindo a cor com base nas condições
-    if (registro.enviados < 7.67) {
+    if (registro.ping < 7.67) {
       dados.datasets[0].backgroundColor.push('#00FF00');
-    } else if (registro.enviados <= 25.36) {
+    } else if (registro.ping <= 25.36) {
       dados.datasets[0].backgroundColor.push('#f6ff00');
     } else {
       dados.datasets[0].backgroundColor.push('#FF0000');
     }
-
-    // Adicione uma verificação para a velocidade de upload
-    if (registro.velocidade_upload !== null) {
-      if (registro.velocidade_upload < 81.05) {
-        dados.datasets[1].backgroundColor.push('#00FF00');
-      } else if (registro.velocidade_upload <= 176.45) {
-        dados.datasets[1].backgroundColor.push('#f6ff00');
-      } else {
-        dados.datasets[1].backgroundColor.push('#FF0000');
-      }
-
-      // if (i == (resposta.length - 1)) {
-      //   KPI_BYTE_ENVIADOS.innerHTML = registro.enviados
-      // }
-      
+    // Definindo a cor com base nas condições
+    if (registro.latencia < 81.05) {
+      dados.datasets[1].backgroundColor.push('#00FF00');
+    } else if (registro.latencia <= 176.45) {
+      dados.datasets[1].backgroundColor.push('#f6ff00');
     } else {
-      // Adicione um valor padrão ou lógica para lidar com dados de velocidade de upload nulos
-      dados.datasets[1].backgroundColor.push('#CCCCCC'); // Cor padrão para nulos
+      dados.datasets[1].backgroundColor.push('#FF0000');
     }
   }
   console.log('----------------------------------------------')
@@ -142,6 +111,11 @@ function plotarGraficoRedeO(resposta, idMaquina) {
   console.log('Dados:')
   console.log(dados.datasets)
   console.log('----------------------------------------------')
+
+  // Reverter a ordem dos arrays antes de criar o gráfico
+  labels.reverse();
+  dados.datasets[0].data.reverse();
+  dados.datasets[1].data.reverse();
 
   // Criando estrutura para plotar gráfico - config
   const config = {
@@ -171,20 +145,22 @@ function plotarGraficoRedeO(resposta, idMaquina) {
   setTimeout(() => atualizarGraficoRede(idMaquina, dados, chartRedeO), 10000);
 }
 
-
 function atualizarGraficoRede(idMaquina, dados, chartRedeO) {
 
   fetch(`/rede/tempo-realRede/${idMaquina}`, { cache: 'no-store' }).then(function (response) {
     if (response.ok) {
       response.json().then(function (novoRegistro) {
 
-        obterDadosRedeU(idMaquina);
-        // alertar(novoRegistro, idMaquina);
-        console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-        console.log(`Dados atuais do gráfico:`);
-        console.log(dados);
+        // obterDadosRedeO(idMaquina);
+        // // alertar(novoRegistro, idMaquina);
+        // console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+        // console.log(`Dados atuais do gráfico:`);
+        // console.log(dados);
 
-        if (novoRegistro[0].data_hora == dados.labels[dados.labels.length - 1]) {
+        // Reverter a ordem dos novos dados
+         novoRegistro.reverse();
+
+        if (novoRegistro[0].data_hora == dados.datasets[0].data.data_hora) {
           console.log("---------------------------------------------------------------")
           console.log("Como não há dados novos para captura, o gráfico não atualizará.")
           // avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
@@ -203,14 +179,6 @@ function atualizarGraficoRede(idMaquina, dados, chartRedeO) {
 
           dados.datasets[1].data.shift();  // apagar o primeira medida
           dados.datasets[1].data.push(novoRegistro[0].latencia); // incluir uma nova medida
-          
-
-          if (novoRegistro.ping != null) {
-            KPI_PING.innerHTML = novoRegistro.ping
-          }
-          if (novoRegistro.latencia != null) {
-            KPI_LAT.innerHTML = novoRegistro.latencia
-          }
 
           chartRedeO.update();
         }
@@ -237,4 +205,3 @@ function limparRede() {
 
   chartRedeO.clear()
 }
-

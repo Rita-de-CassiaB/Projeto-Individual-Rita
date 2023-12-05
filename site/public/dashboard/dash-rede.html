@@ -80,8 +80,8 @@
                         <h6 class="collapse-header">Você pode visualizar:</h6>
                         <a class="collapse-item" href="../dashboard/index.html">Visão Micro</a>
                         <a class="collapse-item" href="../dashboard/dash-temperatura.html">CPU x Temperatura</a>
-                        <a class="collapse-item" href="../dashboard/dash-rede.html">Rede</a>
-                        <a class="collapse-item" href="../dashboard/dash-rendimento-processador.html">Processador</a>
+                        <a class="collapse-item" href="">rita</a>
+                        <a class="collapse-item" href="">marcos</a>
                     </div>
                 </div>
             </li>
@@ -444,11 +444,11 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary-dash text-uppercase mb-1"
                                                 style=" margin-top: -6%;">
-                                                Ping da Rede em Milissegundos</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="ping_kpi"
+                                                PING DE REDE EM MILISSEGUNDOS</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="PING_KPI"
                                                 style=" margin-top: 2%;"> X ms</div>
                                             <span class="mr-2">
-                                                <i class="fas fa-circle" id="metrica_ping" style="border-radius: 300px;"
+                                                <i class="fas fa-circle" id="metricaping" style="border-radius: 300px;"
                                                     onload="metricas()"></i>
                                             </span>
                                         </div>
@@ -460,7 +460,7 @@
                             </div>
                         </div>
 
-                        <!-- KPI Latência -->
+                        <!-- KPI  Pacotes de Rede Recebidos -->
 
                         <div class="col-xl-14 col-md-6 mb-4" id="kpi_rede">
                             <div class="card border-left-primary shadow h-100 py-2">
@@ -469,11 +469,11 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary-dash text-uppercase mb-1"
                                                 style=" margin-top: -6%;">
-                                                Latência em Milissegundos</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="latencia_kpi"
-                                                style=" margin-top: 2%;"> X ms</div>
+                                                MEGABYTES RECEBIDOS DE REDE</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="bytes_recebidos_kpi"
+                                                style=" margin-top: 2%;"> X</div>
                                             <span class="mr-2">
-                                                <i class="fas fa-circle" id="metrica_ping" style="border-radius: 300px;"
+                                                <i class="fas fa-circle" id="metricarec" style="border-radius: 300px;"
                                                     onload="metricas()"></i>
                                             </span>
                                         </div>
@@ -493,13 +493,12 @@
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                Velocidade de Upload em bytes por segundo</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="vel_uplo_kpi">Xbps
+                                                VELOCIDADE DE DOWNLOAD DE REDE</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="vel_down_kpi">X
                                             </div>
-
                                             <span class="mr-2">
-                                                <i class="fas fa-circle" id="metrica_disco"
-                                                    style="border-radius: 300px;" onload="metricas()"></i>
+                                                <i class="fas fa-circle" id="metricadown" style="border-radius: 300px;"
+                                                    onload="metricas()"></i>
                                             </span>
                                         </div>
                                         <div class="col-auto">
@@ -518,15 +517,14 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary-dash text-uppercase mb-1"
                                                 style=" margin-top: -6%;">
-                                                Velocidade de Download atual em bytes por segundo</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="vel_down_kpi"
-                                                style=" margin-top: 2%;"> X%</div>
-
-                                            <span class="mr-2">
-                                                <i class="fas fa-circle" id="metrica_disco"
-                                                    style="border-radius: 300px;" onload="metricas()"></i>
-                                            </span>
+                                                VELOCIDADE DE UPLOAD DE REDE</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="vel_upload_kpi"
+                                                style=" margin-top: 2%;"> X</div>
                                         </div>
+                                        <span class="mr-2">
+                                            <i class="fas fa-circle" id="metricauplo" style="border-radius: 300px;"
+                                                onload="metricas()"></i>
+                                        </span>
                                         <div class="col-auto">
                                             <i class="fas fa-hdd fa-2x text-gray-300"></i>
                                         </div>
@@ -535,189 +533,204 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Content Row -->
+                <!-- Content Row -->
 
 
-                    <div class="row">
+                <div class="row">
 
-                        <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
-                            <div class="card shadow mb-4">
+                    <!-- Area Chart -->
+                    <div class="col-xl-8 col-lg-7">
+                        <div class="card shadow mb-4">
 
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary-dash">Estatísticas em tempo real:
-                                        Status x Latência</h6>
-                                </div>
-                                <!-- Card Body -->
-                                <div class="card-body" style=" height: 420px">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChartRedeO" style="height: 390px; width:100%;"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Pie Chart -->
                             <!-- Card Header - Dropdown -->
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <center>
-                                    <h4 class="m-0 font-weight-bold text-primary-dash"> Rede em Relação aos processos
-                                    </h4>
-                                </center>
+                                <h6 class="m-0 font-weight-bold text-primary-dash">Estatísticas em tempo real:
+                                    Status x Latência</h6>
                             </div>
                             <!-- Card Body -->
-                            <h9 class="m-0 font-weight-bold text-primary-dash"> Bytes Enviados por processo </h9>
-                            <div class="card-body"
-                                style="height: 400px; padding: 0.3rem; display: flex; justify-content: space-evenly;">
-
-                                <div class="chart-pie pt-4 pb-2">
-                                    <canvas id="myPieChartRPE" class="graphPie chartjs-render-monitor"
-                                        style="height: 300px; width: 100%;"></canvas>
+                            <div class="card-body" style=" height: 420px">
+                                <div class="chart-area">
+                                    <canvas id="myAreaChartRedeO" style="height: 390px; width:100%;"></canvas>
                                 </div>
                             </div>
-                            <h9 class="m-0 font-weight-bold text-primary-dash"> Bytes Recebidos por processo </h9>
-                            <div class="card-body"
-                                style="height: 400px; padding: 0.3rem; display: flex; justify-content: space-evenly;">
-                                <div class="chart-pie pt-4 pb-2">
-                                    <canvas id="myPieChartRPR" class="graphPie chartjs-render-monitor"
-                                        style="height: 300px; width: 100%;"></canvas>
-                                </div>
+                            <div class="mt-4 text-center small" style="height: 40px; margin-top: -2%;">
+                                <span class="mr-2">
+                                    <i class="fas fa-circle" style="font-size: 14px;color:#00FF00;"></i> Estável
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fas fa-circle" style="font-size: 14px;color: #f6ff00;"></i>
+                                    Risco
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fa fa-circle" style="font-size:14px;color:#FF0000"></i> Perigo
+                                </span>
 
                             </div>
                         </div>
 
+                        <!-- Pie Chart -->
+                        <!-- Card Header - Dropdown -->
+                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <center>
+                                <h4 class="m-0 font-weight-bold text-primary-dash" style=" width: 100%;">
+                                    Rede em Relação aos processos
+                                </h4>
+                            </center>
+                        </div>
+                        <!-- Card Body -->
+                        <h9 class="m-0 font-weight-bold text-primary-dash"> Bytes Enviados por processo </h9>
+                        <div class="card-body"
+                            style="height: 400px; padding: 0.3rem; display: flex; justify-content: space-evenly;">
 
-                        <!-- utilização upload-->
-                        <div class="col-xl-4 col-lg-5">
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
+                            <div class="chart-pie pt-4 pb-2">
+                                <canvas id="myPieChartRPE" class="graphPie chartjs-render-monitor"
+                                    style="height: 300px; width: 100%;"></canvas>
                             </div>
-                            <div class="card shadow mb-4" style="bottom: 35px; height: 400px; ">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary-dash">Bytes Enviados x Velocidade
-                                        de Upload</h6>
-                                </div>
-                                <div class="card-body" style=" padding: 0.5rem;">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChartRedeU" style="height: 250px; width:100%;"></canvas>
-                                    </div>
-                                </div>
-                                <div class="mt-4 text-center small" style="height: 40px; margin-top: -2%;">
-                                    <span class="mr-2">
-                                        <i class="fas fa-circle" style="font-size: 14px;color:#00FF00;"></i> Estável
-                                    </span>
-                                    <span class="mr-2">
-                                        <i class="fas fa-circle" style="font-size: 14px;color: #f6ff00;"></i>
-                                        Risco
-                                    </span>
-                                    <span class="mr-2">
-                                        <i class="fa fa-circle" style="font-size:14px;color:#FF0000"></i> Perigo
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- banda larga-->
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                            </div>
-                            <div class="card shadow mb-4" style="bottom: 35px; height: 400px; ">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary-dash">Bytes Recebidos x Velocidade
-                                        de Download</h6>
-                                </div>
-                                <div class="card-body" style=" padding: 0.5rem;">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChartRedeD" style="height: 250px; width:100%;"></canvas>
-                                    </div>
-                                </div>
-                                <div class="mt-4 text-center small" style="height: 40px; margin-top: -2%;">
-                                    <span class="mr-2">
-                                        <i class="fas fa-circle" style="font-size: 14px;color:#00FF00;"></i> Estável
-                                    </span>
-                                    <span class="mr-2">
-                                        <i class="fas fa-circle" style="font-size: 14px;color: #f6ff00;"></i>
-                                        Risco
-                                    </span>
-                                    <span class="mr-2">
-                                        <i class="fa fa-circle" style="font-size:14px;color:#FF0000"></i> Perigo
-                                    </span>
-                                </div>
-                            </div>
-
-                            <!-- Pacotes-->
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                            </div>
-                            <div class="card shadow mb-4" style="bottom: 35px; height: 400px; ">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary-dash">Pacotes Recebidos e Enviados</h6>
-                                </div>
-                                <div class="card-body" style=" padding: 0.5rem;">
-                                    <div class="chart-area">
-                                        <canvas id="myAreaChartRedeP" style="height: 250px; width:100%;"></canvas>
-                                    </div>
-                                </div>
-                                <div class="mt-4 text-center small" style="height: 40px; margin-top: -2%;">
-                                    <span class="mr-2">
-                                        <i class="fas fa-circle" style="font-size: 14px;color:#00FF00;"></i> Estável
-                                    </span>
-                                    <span class="mr-2">
-                                        <i class="fas fa-circle" style="font-size: 14px;color: #f6ff00;"></i>
-                                        Risco
-                                    </span>
-                                    <span class="mr-2">
-                                        <i class="fa fa-circle" style="font-size:14px;color:#FF0000"></i> Perigo
-                                    </span>
-                                </div>
+                        </div>
+                        <h9 class="m-0 font-weight-bold text-primary-dash"> Bytes Recebidos por processo </h9>
+                        <div class="card-body"
+                            style="height: 400px; padding: 0.3rem; display: flex; justify-content: space-evenly;">
+                            <div class="chart-pie pt-4 pb-2">
+                                <canvas id="myPieChartRPR" class="graphPie chartjs-render-monitor"
+                                    style="height: 300px; width: 100%;"></canvas>
                             </div>
 
                         </div>
                     </div>
 
-                    <div class="container-fluid">
 
-                        <!-- Page Heading -->
-
-                        <p class="mb-4" style="bottom: 100px;"></p> Visão Geral de processos em relação à Rede
-                        </p>
-
-                        <!-- DataTales Example -->
-                        <div class="card shadow mb-4" style="width: 100%;">
+                    <!-- utilização upload-->
+                    <div class="col-xl-4 col-lg-5">
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                        </div>
+                        <div class="card shadow mb-4" style="bottom: 35px; height: 400px; ">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary-dash">Processos da Máquina </h6>
+                                <h6 class="m-0 font-weight-bold text-primary-dash">Bytes Enviados x Velocidade
+                                    de Upload</h6>
                             </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                            <tr>
-                                                <th>PID</th>
-                                                <th>Nome do Processo</th>
-                                                <th>Bytes Enviados</th>
-                                                <th>Bytes Recebidos</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="body_processo">
-                                        </tbody>
-                                    </table>
+                            <div class="card-body" style=" padding: 0.5rem;">
+                                <div class="chart-area">
+                                    <canvas id="myAreaChartRedeU" style="height: 250px; width:100%;"></canvas>
                                 </div>
+                            </div>
+                            <div class="mt-4 text-center small" style="height: 40px; margin-top: -2%;">
+                                <span class="mr-2">
+                                    <i class="fas fa-circle" style="font-size: 14px;color:#00FF00;"></i> Estável
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fas fa-circle" style="font-size: 14px;color: #f6ff00;"></i>
+                                    Risco
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fa fa-circle" style="font-size:14px;color:#FF0000"></i> Perigo
+                                </span>
                             </div>
                         </div>
 
-                        <div id="paginacao">
-                            <span id="pagina_atual">Página 1</span>
-                            <button style="border-radius: 3px; color: white; background-color: black;"
-                                id="pag_anterior">Anterior</button>
-                            <button style="border-radius: 3px; color: white; background-color: black;"
-                                id="prox_pagina">Próxima</button>
+                        <!-- banda larga-->
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                        </div>
+                        <div class="card shadow mb-4" style="bottom: 35px; height: 400px; ">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary-dash">Bytes Recebidos x Velocidade
+                                    de Download</h6>
+                            </div>
+                            <div class="card-body" style=" padding: 0.5rem;">
+                                <div class="chart-area">
+                                    <canvas id="myAreaChartRedeD" style="height: 250px; width:100%;"></canvas>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-center small" style="height: 40px; margin-top: -2%;">
+                                <span class="mr-2">
+                                    <i class="fas fa-circle" style="font-size: 14px;color:#00FF00;"></i> Estável
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fas fa-circle" style="font-size: 14px;color: #f6ff00;"></i>
+                                    Risco
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fa fa-circle" style="font-size:14px;color:#FF0000"></i> Perigo
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Pacotes-->
+                        <div class="card shadow mb-4">
+                            <!-- Card Header - Dropdown -->
+                        </div>
+                        <div class="card shadow mb-4" style="bottom: 35px; height: 400px; ">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary-dash">Pacotes Recebidos e Enviados</h6>
+                            </div>
+                            <div class="card-body" style=" padding: 0.5rem;">
+                                <div class="chart-area">
+                                    <canvas id="myAreaChartRedeP" style="height: 250px; width:100%;"></canvas>
+                                </div>
+                            </div>
+                            <div class="mt-4 text-center small" style="height: 40px; margin-top: -2%;">
+                                <span class="mr-2">
+                                    <i class="fas fa-circle" style="font-size: 14px;color:#00FF00;"></i> Estável
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fas fa-circle" style="font-size: 14px;color: #f6ff00;"></i>
+                                    Risco
+                                </span>
+                                <span class="mr-2">
+                                    <i class="fa fa-circle" style="font-size:14px;color:#FF0000"></i> Perigo
+                                </span>
+                            </div>
                         </div>
 
                     </div>
                 </div>
+
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+
+
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <div class="d-sm-flex align-items-center justify-content-between mb-3">
+                                <h1 class="m-0 font-weight-bold text-primary-dash" style="font-size: 33px; ">
+                                    Rede em Relação aos Processos
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                    <tr>
+                                        <th>PID</th>
+                                        <th>Nome do Processo</th>
+                                        <th>Bytes Enviados</th>
+                                        <th>Bytes Recebidos</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="body_processo">
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <center>
+                            <div id="paginacao">
+                                <span id="pagina_atual">Página 1</span>
+                                <button style="border-radius: 3px; color: white; background-color: black;"
+                                    id="pag_anterior">Anterior</button>
+                                <button style="border-radius: 3px; color: white; background-color: black;"
+                                    id="prox_pagina">Próxima</button>
+                        </center>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
     </div>
 
     <footer class="sticky-footer bg-white">
@@ -788,7 +801,6 @@
     <script src="vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
-    <script src="js/demo/chart-line-rede.js"></script>
     <script src="js/demo/chart-line-rede-utiupload.js"></script>
     <script src="js/demo/chart-line-rede-utidownload.js"></script>
     <script src="js/demo/chart-line-rede-status.js"></script>
@@ -801,24 +813,33 @@
 
 </html>
 <script>
+
+
     window.onload = async function carregarDados() {
         try {
             await validarSessao();
-            exibirMaquinas();
+            exibirMaquinas(idMaquina);
+
             var elemento_maquina = document.getElementById("select_maquina");
             var idMaquina = elemento_maquina.value;
-            await obterDadosRedeU(idMaquina);
-            await obterDadosRedeD(idMaquina);
-            await obterDadosRedeO(idMaquina);
-            await obterDadosRedeP(idMaquina);
-            await obterDadosRede(idMaquina);
-            await obterDadosRPE(idMaquina);
-            await obterDadosRPR(idMaquina);
-            await atualizarFeed(idMaquina);
+            await chamarGraficos(idMaquina)
+
         } catch (error) {
             console.error("Erro no carregamento da página: " + error.message);
         }
     };
+
+    function chamarGraficos(idMaquina) {
+        obterDadosRedeU(idMaquina);
+        obterDadosRedeD(idMaquina);
+        obterDadosRedeO(idMaquina);
+        obterDadosRedeP(idMaquina);
+        obterDadosRPE(idMaquina);
+        obterDadosRPR(idMaquina);
+        atualizarFeed(idMaquina);
+        atualizarGraficoRede(idMaquina)
+        obterDadosDesempenhoRede(idMaquina)
+    }
 
     var seletor = document.getElementById("select_maquina");
 
@@ -829,11 +850,12 @@
 
     async function mudarId() {
         try {
-            limparDesempenho()
+            limparDesempenhoRede()
             limparRede()
             limparRPE()
             limparRPR()
             limparP()
+
             var elemento_maquina = document.getElementById("select_maquina");
             var idMaquina = elemento_maquina.value;
             console.log(idMaquina)
@@ -845,6 +867,7 @@
             await obterDadosRPR(idMaquina); // Processos e bytes grafico pizza
             await obterDadosP(idMaquina);
             await atualizarFeed(idMaquina);
+            await obterDadosDesempenhoRede(idMaquina);
         } catch (error) {
             console.error("Erro no carregamento da página: " + error.message);
         }

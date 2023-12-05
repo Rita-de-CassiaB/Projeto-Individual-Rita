@@ -34,6 +34,7 @@ function atualizarFeed() {
                     var setor = novaLinha.insertCell(5);
                     var status = novaLinha.insertCell(6);
                     var qtd_alertas_maquina = novaLinha.insertCell(7);
+                    var id_linha = novaLinha.insertCell(8);
 
 
                     id.innerHTML = maquina.id_maquina;
@@ -48,6 +49,7 @@ function atualizarFeed() {
                         status.innerHTML = "Inativa"
                     }
                     qtd_alertas_maquina.innerHTML = maquina.qtd_alerta_maquina;
+                    id_linha.innerHTML= maquina.fk_linhaM;
                     
                     console.log(maquina.qtd_maquina)
                     t_maquinas += maquina.qtd_maquina

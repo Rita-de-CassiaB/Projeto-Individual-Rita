@@ -1,4 +1,3 @@
-
 import com.github.britooo.looca.api.core.Looca
 import java.util.concurrent.TimeUnit
 import javax.swing.JOptionPane
@@ -42,7 +41,7 @@ fun main() {
             val novaRede = repositorio.capturarDadosR(looca)
             repositorio.cadastrarRede(novaRede, id_maquina, fk_empresa)
 
-            TimeUnit.SECONDS.sleep(60)
+            TimeUnit.SECONDS.sleep(20)
         }
     } else {
         JOptionPane.showMessageDialog(

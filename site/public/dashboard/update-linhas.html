@@ -178,6 +178,11 @@
 
             if (resposta.ok) {
 
+                resposta.json().then(json => {
+                    console.log(JSON.stringify(json));
+                    sessionStorage.LINHAS = JSON.stringify(json.linha)
+                });
+                
                 Swal.fire({
                     icon: 'success',
                     title: 'Alterações da Linha realizado com sucesso!',

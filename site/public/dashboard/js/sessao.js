@@ -51,7 +51,7 @@ function exibirMaquinas() {
 
 function exibirLinhas() {
     select = document.getElementById("select_linha");
-    JSON.parse(sessionStorage.Linhas).forEach(item => {
+    JSON.parse(sessionStorage.LINHAS).forEach(item => {
         var opcao = document.createElement('option');
         opcao.value = item.id_linha;
         opcao.innerHTML = "Nome da Linha: " + item.nome;
@@ -66,7 +66,7 @@ function exibirLinhas() {
 
 function exibirLinhasDash() {
     select = document.getElementById("select_linha");
-    JSON.parse(sessionStorage.Linhas).forEach(item => {
+    JSON.parse(sessionStorage.LINHAS).forEach(item => {
         var opcao = document.createElement('option');
         opcao.value = item.id_linha;
         opcao.innerHTML = `Linha: ${item.numero} ` + item.nome;

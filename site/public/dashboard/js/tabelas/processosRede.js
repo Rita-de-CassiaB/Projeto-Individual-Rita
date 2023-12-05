@@ -1,10 +1,11 @@
-idEmpresa = sessionStorage.ID_EMPRESA
+idEmpresa = sessionStorage.ID_EMPRESA;
 let pagina_atual = 1;
 const resultados_por_pagina = 10;
 
-var totalDados = 0
+var totalDados = 0;
+
 function atualizarFeed(idMaquina) {
-    fetch(`/rede/listar/${idEmpresa}/${idMaquina}`).then(function (resposta) {
+    fetch(`/rede/listarProcessosRede/${idEmpresa}/${idMaquina}`).then(function (resposta) {
         if (resposta.ok) {
             if (resposta.status == 204) {
                 var feed = document.getElementById("body_processo");
@@ -45,8 +46,9 @@ function atualizarFeed(idMaquina) {
             throw ('Houve um erro na API!');
         }
     }).catch(function (error) {
-        console.error(error);
+        console.error('Erro na API:', error);
     });
+    
 }
 
 const PaginaAnteriorButton = document.getElementById("pag_anterior");
@@ -55,6 +57,7 @@ const ProximaPaginaButton = document.getElementById("prox_pagina");
 PaginaAnteriorButton.addEventListener("click", function () {
     var elemento_maquina = document.getElementById("select_maquina");
     var idMaquina = elemento_maquina.value;
+
     if (pagina_atual > 1) {
         pagina_atual--;
         atualizarFeed(idMaquina);
@@ -68,6 +71,7 @@ ProximaPaginaButton.addEventListener("click", function () {
         var elemento_maquina = document.getElementById("select_maquina");
         var idMaquina = elemento_maquina.value;
         pagina_atual++;
+
         atualizarFeed(idMaquina);
     }
 });

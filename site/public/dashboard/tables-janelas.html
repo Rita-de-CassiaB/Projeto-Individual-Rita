@@ -82,10 +82,10 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Você pode visualizar:</h6>
                         <a class="collapse-item" href="../dashboard/index.html">Visão Micro</a>
-                        <a class="collapse-item" href="../dashboard/dash-temperatura.html">CPU x Temperatura</a>
-                        <a class="collapse-item" href="">miguel</a>
+                        <a class="collapse-item" href="../dashboard/dash-temperatura.html">Temperatura da CPU</a>
                         <a class="collapse-item" href="../dashboard/dash-rede.html">Rede</a>
-                        <a class="collapse-item" href="../dashboard/dash-rendimento-processador.html">Processador</a>
+                        <a class="collapse-item" href="../dashboard/dash-rendimento-processador.html">Rendimento do Processador</a>
+                        <a class="collapse-item" href="">Miguel</a>
                     </div>
                 </div>
             </li>
@@ -446,7 +446,7 @@
                                     <thead>
                                         <tr>
                                             <th>Nome da Janela</th>
-                                            <th>Valor de negócio</th>
+                                            <th>Valor ao negócio</th>
                                             <th>Status Atual</th>
                                             <th>Último registro de atividade</th>
                                         </tr>
@@ -458,16 +458,74 @@
                         </div>
                     </div>
 
+
+                    <div id="paginacao" style="margin-left: 2%; margin-bottom: 5%;">
+                        <span id="pagina_atual">Página 1</span>
+                        <button style="border-radius: 3px; color: white; background-color: black;"
+                            id="pag_anterior">Anterior</button>
+                        <button style="border-radius: 3px; color: white; background-color: black;"
+                            id="prox_pagina">Próxima</button>
+                    </div>
+                    <!-- /.container-fluid -->
+                    <div class="container-fluid">
+
+                        <h1 class="h3 mb-0 text-gray-800" style="width: 100%;">Busca de Janelas </h1>
+                        <p class="mb-4">. Insira o nome do processo ou da janela que você deseja localizar e obtenha
+                            informações detalhadas sobre CPU e RAM. A ferramenta consta com a listagem dos processos e
+                            gráficos de corelação.
+                        </p>
+                    </div>
+
+                    <!-- FERRANEBTA DE BUSCA -->
+
+                    <form style="margin-left: 3%; width: 90%;">
+                        <div class="input-group">
+                            <input type="text" class="form-control border-0 small" placeholder="Search for..."
+                                aria-label="Search" aria-describedby="basic-addon2" style="background-color: white">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="card shadow mb-4" style="margin-top: 3%;">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary-dash">Janelas Cadastrados</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome da Janela</th>
+                                            <th>Nome do processo</th>
+                                            <th>PID</th>
+                                            <th>Uso de CPU (%)</th>
+                                            <th>Uso de RAM (%)</th>
+                                            <th>Status Atual</th>
+                                            <th>Último registro de atividade</th>
+                                            <th>Quantidade de tempo em atividade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela_janela_processo">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div id="paginacao">
+                <div id="paginacao" style="margin-left: 2%; margin-bottom: 5%;">
                     <span id="pagina_atual">Página 1</span>
                     <button style="border-radius: 3px; color: white; background-color: black;"
                         id="pag_anterior">Anterior</button>
                     <button style="border-radius: 3px; color: white; background-color: black;"
                         id="prox_pagina">Próxima</button>
                 </div>
-                <!-- /.container-fluid -->
+
 
             </div>
             <!-- End of Main Content -->

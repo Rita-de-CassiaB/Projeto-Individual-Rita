@@ -2,8 +2,23 @@ var database = require("../database/config")
 
 function entrar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
-    var instrucao = `
-    select 
+    instrucaoSql = ''
+
+    if (process.env.AMBIENTE_PROCESSO == "producao") {
+        instrucaoSql = `select 
+    colaborador.*, empresa.cnpj, 
+    FORMAT(contrato.data_inicio, '%d/%m/%Y') as data_inicio, 
+    FORMAT(contrato.data_termino, '%d/%m/%Y') as data_termino, 
+    empresa.razao_social,
+    plano.nome_plano, 
+    contrato.preco_total 
+    from colaborador 
+     join empresa on fk_empresa = id_empresa
+     left join contrato on fk_empresaCo = id_empresa
+     left join plano on fk_plano = id_plano
+     WHERE (email = '${email}' AND senha = '${senha}') ;`;
+    } else if (process.env.AMBIENTE_PROCESSO == "desenvolvimento") {
+        instrucaoSql = `select 
     colaborador.*, empresa.cnpj, 
     DATE_FORMAT(contrato.data_inicio, "%d/%m/%Y") as data_inicio, 
     DATE_FORMAT(contrato.data_termino, "%d/%m/%Y") as data_termino, 
@@ -14,11 +29,17 @@ function entrar(email, senha) {
      join empresa on fk_empresa = id_empresa
      left join contrato on fk_empresaCo = id_empresa
      left join plano on fk_plano = id_plano
-    WHERE (email = '${email}' AND senha = '${senha}') ;
-    `; 
-    console.log("Executando a instrução SQL: \n" + instrucao);
+     WHERE (email = '${email}' AND senha = '${senha}') ;`; 
+console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+  
+
+    } else {
+        console.log("\nO AMBIENTE (produção OU desenvolvimento) NÃO FOI DEFINIDO EM app.js\n");
+        return
+    }
     
-    return database.executar(instrucao);
+    return database.executar(instrucaoSql);
 }
 
 function cadastrarEmpresa(razaoSocial, cnpj) {

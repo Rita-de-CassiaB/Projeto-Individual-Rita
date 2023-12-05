@@ -44,8 +44,8 @@
                             </div>
                             <form class="user">
                                 <div class="form-group">
-                                    <input type="name" class="form-control form-control-user" id="input_cdEmp"
-                                       readonly placeholder="Código da Empresa">
+                                    <input type="name" class="form-control form-control-user" id="input_cdEmp" readonly
+                                        placeholder="Código da Empresa">
                                 </div>
                                 <div class="form-group">
                                     <input type="name" class="form-control form-control-user" id="input_id"
@@ -76,12 +76,12 @@
                                     <div class="col-sm-6 mb-3 mb-sm-0" style="margin-left: 16px;">
                                         <input id="input_status1" type="radio" name="opcao_status" value="1">
                                         <h8 style="font-size: 13px; ">Ativo</h8>
-                                        <input id="input_status2" style="margin-left: 10px;" type="radio" name="opcao_status"
-                                            value="0">
+                                        <input id="input_status2" style="margin-left: 10px;" type="radio"
+                                            name="opcao_status" value="0">
                                         <h8 style="font-size: 13px;">Inativo</h8>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <input type="password" class="form-control form-control-user" id="input_senha"
                                         placeholder="Senha ">
@@ -191,14 +191,6 @@
             status = 0
         }
 
-
-
-        // if (nomeCVar == "" || emailCVar == "" || senhaCVar == "" || celularCVar == "" || setorCVar == ""|| cpfVar == "" ) {
-
-        //     mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-        //     return false;
-        // }
-
         fetch("/usuarios/alterarColaborador", {
             method: "POST",
             headers: {
@@ -230,7 +222,7 @@
                 setTimeout(() => {
                     window.location = "tables-employees.html";
                 }, "2000")
-                
+
             } else {
                 throw ("Houve um erro ao tentar realizar o cadastro!");
             }

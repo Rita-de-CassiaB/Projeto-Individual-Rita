@@ -79,10 +79,10 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Você pode visualizar:</h6>
                         <a class="collapse-item" href="../dashboard/index.html">Visão Micro</a>
-                        <a class="collapse-item" href="../dashboard/dash-temperatura.html">CPU x Temperatura</a>
-                        <a class="collapse-item" href="">miguel</a>
+                        <a class="collapse-item" href="../dashboard/dash-temperatura.html">Temperatura da CPU</a>
                         <a class="collapse-item" href="../dashboard/dash-rede.html">Rede</a>
-                        <a class="collapse-item" href="../dashboard/dash-rendimento-processador.html">Processador</a>
+                        <a class="collapse-item" href="../dashboard/dash-rendimento-processador.html">Rendimento do Processador</a>
+                        <a class="collapse-item" href="">Miguel</a>
                     </div>
                 </div>
             </li>
@@ -402,10 +402,10 @@
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Configurações
                                 </a>
-                                <!-- <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Activity Log
-                                </a> -->
+                                </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"
                                     href="/public/index.html">
@@ -447,7 +447,7 @@
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">X%</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="KPIprocessadorUso">X%</div>
                                                 </div>
                                             
                                             </div>
@@ -500,19 +500,19 @@
                                 <!-- Card Body -->
                                 <div class="card-body" style=" padding: 0.5rem;">
                                     <div class="chart-area">
-                                        <canvas id="myAreaChartProXTemp" style="height: 100%; width:100%;"></canvas>
+                                        <canvas id="myChartProceTemp" style="height: 100%; width:100%;"></canvas>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="card shadow mb-4" style="width: 590px;height: 500px;">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary-dash">Informações do Processador</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary-dash">Frequência do Processador ao Longo do Tempo</h6>
                                 </div>
                                 <div class="card-body" style=" padding: 0.5rem;">
                                     <div class="chart-area">
                                         
-                                        <canvas id="myAreaChartCPU" style="height: 100%; width:100%;"></canvas>
+                                        <canvas id="myChartFrequeTemp" style="height: 100%; width:100%;"></canvas>
                                     </div>
                                 </div>
                             </div>
@@ -564,18 +564,34 @@
                                 </div>
 
 
-                <div class="card shadow mb-4"
-                style="margin-left: -165px; width: 543px; height: 500px; margin-top: 6%;">
-                <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary-dash"> Frequência do Processador ao Longo do Tempo</h6>
-                </div>
-                <div class="card-body" style=" padding: 0.5rem;">
-                    <div class="chart-area">
-                        <canvas id="myChartFreqXTemp" style="height: 100%; width:100%;"></canvas>
-                    </div>
-                </div>
-                </div>
+                             
 
+                            </div>
+                        </div>
+
+                        <h4>Informações do processador</h4>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead id="tabela_titulo_maquina">
+                                        <tr>
+                                            <th>Identificador</th>
+                                            <th>Fabricante</th>
+                                            <th>Microarquitetura</th>
+                                            <th>Indentificação da maquina</th>
+                                            <th>Indentificação da empresa</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tabela_processador">
+                                        <!-- <tr>
+                                            <td></td>
+                                            <td>1</td>
+                                            <td>azul</td>
+                                            <td>1</td>
+                                            <td></td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -609,9 +625,11 @@
                 <!-- Page level custom scripts -->
                 <script src="js/demo/chart-pie-demo.js"></script>
                 <script src="js/demo/line-processador-temp.js"></script>
+                <script src="js/demo/chart-pizaa-pro-disco.js"></script>
                 <script src="js/demo/chart-line-temp.js"></script>
                 <script src="js/demo/line-freq-processador.js"></script>
-                <script src="js/demo/chart-line-ram.js"></script>
+                <script src="js/demo/lista-processador.js"></script>
+                <script src="js/demo/cha-bar-pro-cpu.js"></script>
                 <script src="js/demo/chart-line-rede.js"></script>
                 <script src="js/demo/janelas.js"></script>
                 <script src="js/demo/desempenho.js"></script>
@@ -625,7 +643,8 @@
 </body>
 
 </html>
-<script>
+<script>    
+
     window.onload = async function () {
         try {
             await validarSessao();
@@ -634,6 +653,10 @@
             var idMaquina = elemento_maquina.value;
             await obterDadosDoPocessadorTemp(idMaquina);
             await obterDadosDaFrequencia(idMaquina);
+            await ObtergraficoBarra(idMaquina);
+            await obterDadosKPI(idMaquina);
+            await obtergraficoPizza(idMaquina);
+            await listarProcessador(idMaquina);
             
         } catch (error) {
             console.error("Erro no carregamento da página: " + error.message);
